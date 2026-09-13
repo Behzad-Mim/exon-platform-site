@@ -1,40 +1,45 @@
-# The two public pages
+# The Exon Platform site
 
-Google will not let an OAuth consent screen be published to production without a **homepage URL** and
-a **privacy policy URL**. These are those two pages. They are also the only reason the app can leave
-"Testing" status — and leaving it is what stops Google expiring the refresh token every 7 days.
+Live at **<https://behzad-mim.github.io/exon-platform-site/>**, served by GitHub Pages from `main`.
 
 ```
-index.html     the homepage
+index.html     the homepage, with the download links
 privacy.html   the privacy policy
 ```
 
-Both are self-contained: no CDN, no fonts to fetch, no build step. Open either one in a browser and
-it works. English and Persian in the same file, with a toggle.
+Both are self-contained: no CDN, no web font to fetch, no build step. Open either one in a browser
+and it works. English and Persian live in the same file behind a toggle, each with its own `lang`
+and `dir`.
 
-## Publishing them
+## Why these two pages exist
 
-Any static host will do. GitHub Pages is free and its domain is accepted by Google:
+Google will not publish an OAuth consent screen to production without a **homepage URL** and a
+**privacy policy URL**. That matters more than it sounds: while the consent screen sits in *Testing*,
+Google expires the refresh token every 7 days, and the app would ask the owner to sign in to Google
+again every week for as long as it is used.
 
-1. Make a public repository, e.g. `exon-platform-site`.
-2. Put `index.html` and `privacy.html` at its root and push.
-3. Settings → Pages → Source: `Deploy from a branch`, branch `main`, folder `/ (root)`.
-4. A minute later the pages are at:
-   - `https://<username>.github.io/exon-platform-site/`
-   - `https://<username>.github.io/exon-platform-site/privacy.html`
+What goes in the Google Cloud console, under **Google Auth Platform → Branding**:
 
-Then in the Google Cloud console, under **Google Auth Platform → Branding**:
+| Field | Value |
+| --- | --- |
+| Application home page | `https://behzad-mim.github.io/exon-platform-site/` |
+| Application privacy policy link | `https://behzad-mim.github.io/exon-platform-site/privacy.html` |
+| Authorized domains | `github.io` |
 
-- **Application home page** → the first URL
-- **Application privacy policy link** → the second
-- **Authorized domains** → `github.io`
+Then **Audience → Publish app** stops being greyed out.
 
-and **Audience → Publish app** stops being greyed out.
+## Updating it
 
-## Before publishing, check these are still true
+Edit the file and push. Pages rebuilds on its own, usually within a minute.
 
-The privacy policy makes specific promises. They are accurate as the app stands, and each one is a
-claim that has to be re-checked if the app changes:
+```bash
+git add -A && git commit -m "..." && git push
+```
+
+## Before changing anything, check these are still true
+
+The privacy policy makes specific promises. Each is accurate as the app stands, and each has to be
+re-checked if the app changes:
 
 - no analytics, no advertising, no telemetry, no crash reports leaving the device
 - no servers operated by us, and no user accounts
@@ -43,6 +48,11 @@ claim that has to be re-checked if the app changes:
 - the only Google scopes requested are `openid`, `userinfo.email` and `drive.file`
 - the Google token is kept in DPAPI / Android Keystore, never in a backup or an export
 
-The contact address in both pages is `behzad.shahidi0@gmail.com`. Change it in both files if a
-different one should be public — it is the address Google shows on the consent screen and the one
-people will write to.
+The contact address on both pages is `behzad.shahidi0@gmail.com` — the same one Google shows on the
+consent screen, and the one people will actually write to. Change it in both files if a different
+one should be public.
+
+## Related
+
+The installers live in a separate repository, and no source is published in either:
+<https://github.com/Behzad-Mim/exon-platform-releases>
