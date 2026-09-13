@@ -33,6 +33,16 @@
   .card p{margin:0;color:var(--dim);font-size:14.5px;line-height:1.7}
   .note{background:var(--accent-soft);border:1px solid var(--accent);border-radius:14px;
     padding:20px 22px;color:var(--ink);font-size:15px}
+  .dl{display:flex;gap:14px;flex-wrap:wrap;margin:4px 0 18px}
+  .dl a{display:flex;align-items:center;gap:12px;text-decoration:none;min-width:238px;
+    background:var(--accent);color:#fff;padding:15px 20px;border-radius:13px;
+    border:1px solid transparent;transition:filter .15s}
+  .dl a:hover{filter:brightness(1.08)}
+  .dl a.alt{background:var(--card);color:var(--ink);border-color:var(--line)}
+  .dl .glyph{font-size:23px;line-height:1}
+  .dl .who{display:flex;flex-direction:column;line-height:1.35}
+  .dl .who b{font-size:15px;font-weight:600}
+  .dl .who span{font-size:12.5px;opacity:.82}
   footer{padding:36px 0 60px;color:var(--dim);font-size:14px;
     display:flex;gap:18px;flex-wrap:wrap;align-items:center}
   footer a{color:var(--accent)}
@@ -122,6 +132,40 @@
           <p>بک‌اپ روی دستگاه می‌ماند و اگر بخواهید در پوشه‌ای از گوگل درایو خودتان — رمزشده، پیش از
             آنکه دستگاه را ترک کند.</p></div>
       </div>
+    </div>
+  </section>
+
+  <section>
+    <div lang="en">
+      <h2>Download</h2>
+      <div class="dl">
+        <a href="https://github.com/Behzad-Mim/exon-platform-releases/releases/latest">
+          <span class="glyph">&#128421;</span>
+          <span class="who"><b>Windows</b><span>Installer, 64-bit</span></span>
+        </a>
+        <a class="alt" href="https://github.com/Behzad-Mim/exon-platform-releases/releases/latest">
+          <span class="glyph">&#128241;</span>
+          <span class="who"><b>Android</b><span>APK, Android 5.0 and up</span></span>
+        </a>
+      </div>
+      <p>The Windows build needs nothing installed first. The Android build is an APK you install
+        yourself, so the phone will ask you to allow it once — it is not on Google Play.</p>
+    </div>
+
+    <div lang="fa">
+      <h2>دانلود</h2>
+      <div class="dl">
+        <a href="https://github.com/Behzad-Mim/exon-platform-releases/releases/latest">
+          <span class="glyph">&#128421;</span>
+          <span class="who"><b>ویندوز</b><span>نصبی، ۶۴ بیتی</span></span>
+        </a>
+        <a class="alt" href="https://github.com/Behzad-Mim/exon-platform-releases/releases/latest">
+          <span class="glyph">&#128241;</span>
+          <span class="who"><b>اندروید</b><span>فایل APK، اندروید ۵ به بالا</span></span>
+        </a>
+      </div>
+      <p>نسخهٔ ویندوز به نصب هیچ چیز دیگری نیاز ندارد. نسخهٔ اندروید یک فایل APK است که خودتان نصب
+        می‌کنید، پس گوشی یک بار اجازه می‌خواهد — این اپ روی گوگل پلی نیست.</p>
     </div>
   </section>
 
