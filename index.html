@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Exon Platform</title>
+<meta name="description" content="An offline ledger for hawala and currency exchange. Encrypted on the device, for Windows and Android.">
+<style>
+  :root{
+    --bg:#0b1220; --card:#131c2e; --line:#1f2c44; --ink:#e6edf7; --dim:#93a3bd;
+    --accent:#3b82f6; --accent-soft:rgba(59,130,246,.14);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:16px/1.75 -apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  .wrap{max-width:880px;margin:0 auto;padding:0 22px}
+  header{padding:60px 0 34px;border-bottom:1px solid var(--line)}
+  .brand{display:flex;align-items:center;gap:13px;margin-bottom:30px}
+  .logo{width:42px;height:42px;border-radius:11px;background:var(--accent);
+    display:flex;align-items:center;justify-content:center;font-weight:700;font-size:17px;color:#fff}
+  .brand b{font-size:17px;letter-spacing:.2px}
+  h1{font-size:clamp(28px,5vw,42px);line-height:1.25;margin:0 0 16px;letter-spacing:-.5px}
+  .lede{font-size:clamp(16px,2.4vw,19px);color:var(--dim);margin:0;max-width:60ch}
+  .langs{display:flex;gap:8px;margin-left:auto}
+  .langs button{background:transparent;border:1px solid var(--line);color:var(--dim);
+    padding:6px 13px;border-radius:99px;cursor:pointer;font:inherit;font-size:13px}
+  .langs button[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent);color:var(--ink)}
+  section{padding:44px 0;border-bottom:1px solid var(--line)}
+  h2{font-size:20px;margin:0 0 20px}
+  .grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px}
+  .card h3{margin:0 0 8px;font-size:16px}
+  .card p{margin:0;color:var(--dim);font-size:14.5px;line-height:1.7}
+  .note{background:var(--accent-soft);border:1px solid var(--accent);border-radius:14px;
+    padding:20px 22px;color:var(--ink);font-size:15px}
+  footer{padding:36px 0 60px;color:var(--dim);font-size:14px;
+    display:flex;gap:18px;flex-wrap:wrap;align-items:center}
+  footer a{color:var(--accent)}
+  a{color:var(--accent)}
+  [lang]:not(html){display:none}
+  body[data-lang="en"] [lang="en"],
+  body[data-lang="fa"] [lang="fa"]{display:revert}
+  body[data-lang="fa"]{direction:rtl}
+  body[data-lang="fa"] .langs{margin-left:0;margin-right:auto}
+  @media (prefers-color-scheme:light){
+    :root{--bg:#f7f9fc;--card:#fff;--line:#e2e8f2;--ink:#0f172a;--dim:#5b6b85;
+      --accent-soft:rgba(59,130,246,.1)}
+  }
+</style>
+</head>
+<body data-lang="en">
+
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <div class="logo">EX</div>
+      <b>Exon Platform</b>
+      <div class="langs">
+        <button type="button" data-set="en" aria-pressed="true">English</button>
+        <button type="button" data-set="fa" aria-pressed="false">فارسی</button>
+      </div>
+    </div>
+
+    <div lang="en">
+      <h1>A ledger that works with the internet off.</h1>
+      <p class="lede">Exon Platform keeps the books for a hawala and currency-exchange business —
+        transfers, cash in and out, exchanges, customer accounts and daily balance sheets. Everything
+        is stored on your own device, encrypted with your own password.</p>
+    </div>
+
+    <div lang="fa">
+      <h1>دفتری که بدون اینترنت کار می‌کند.</h1>
+      <p class="lede">اکسون پلتفرم حساب‌های یک صرافی و حواله را نگه می‌دارد — ارسال و دریافت حواله،
+        رسید و برد نقد، تبادله، حساب مشتریان و بیلانس روزانه. همه‌چیز روی دستگاه خودتان می‌ماند و با
+        رمز خودتان رمزگذاری می‌شود.</p>
+    </div>
+  </header>
+
+  <section>
+    <div lang="en">
+      <h2>What it does</h2>
+      <div class="grid">
+        <div class="card"><h3>Offline first</h3>
+          <p>No account to create, no server to reach. The app opens and works with the network off —
+            which is the point, not a fallback.</p></div>
+        <div class="card"><h3>Encrypted on the device</h3>
+          <p>The book is a SQLCipher database locked with a key derived from your password. A copied
+            file is ciphertext, not a customer list.</p></div>
+        <div class="card"><h3>Several currencies in one deal</h3>
+          <p>Afghani and dollars in the same transfer, each side of the account moving correctly, and
+            every currency inside a document netting to zero.</p></div>
+        <div class="card"><h3>Three languages</h3>
+          <p>Persian, Pashto and English, with the Hijri Shamsi calendar and Persian digits where they
+            belong.</p></div>
+        <div class="card"><h3>Windows and Android</h3>
+          <p>The same ledger on a desktop and a phone, able to sync directly to each other over the
+            local network without going through anybody's server.</p></div>
+        <div class="card"><h3>Your backups, yours</h3>
+          <p>Backups stay on the device, and optionally in a folder of your own Google Drive —
+            encrypted before they leave.</p></div>
+      </div>
+    </div>
+
+    <div lang="fa">
+      <h2>چه می‌کند</h2>
+      <div class="grid">
+        <div class="card"><h3>اول آفلاین</h3>
+          <p>نه حسابی برای ساختن، نه سروری برای رسیدن. اپ با اینترنت خاموش باز می‌شود و کار می‌کند —
+            و این هدف است، نه راه دوم.</p></div>
+        <div class="card"><h3>رمزدار روی دستگاه</h3>
+          <p>دفتر یک دیتابیس SQLCipher است که با کلیدی از رمز شما قفل می‌شود. فایلِ کپی‌شده متن
+            رمزشده است، نه فهرست مشتریان.</p></div>
+        <div class="card"><h3>چند ارز در یک معامله</h3>
+          <p>افغانی و دالر در یک حواله، هر طرف حساب درست جابه‌جا می‌شود و هر ارز داخل یک سند به صفر
+            می‌رسد.</p></div>
+        <div class="card"><h3>سه زبان</h3>
+          <p>فارسی، پشتو و انگلیسی، با تقویم هجری شمسی و ارقام فارسی هرجا که باید.</p></div>
+        <div class="card"><h3>ویندوز و اندروید</h3>
+          <p>یک دفتر روی کامپیوتر و گوشی، که می‌توانند مستقیم روی شبکهٔ محلی همگام شوند بدون عبور از
+            سرور کسی.</p></div>
+        <div class="card"><h3>بک‌اپ‌ها مال خودتان</h3>
+          <p>بک‌اپ روی دستگاه می‌ماند و اگر بخواهید در پوشه‌ای از گوگل درایو خودتان — رمزشده، پیش از
+            آنکه دستگاه را ترک کند.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div lang="en">
+      <h2>About the Google connection</h2>
+      <p class="note">Connecting Google is optional and off until you turn it on. When you do, the app
+        asks only for permission to see and manage <b>the files it creates itself</b> in your Drive —
+        never the rest of it. What it uploads is already encrypted with your book password, so the
+        copy in your Drive cannot be read by Google, by us, or by anyone who does not have that
+        password. That also means that if you forget it, the cloud copy cannot be opened either.</p>
+    </div>
+
+    <div lang="fa">
+      <h2>دربارهٔ اتصال گوگل</h2>
+      <p class="note">اتصال گوگل اختیاری است و تا خودتان روشنش نکنید خاموش می‌ماند. وقتی روشن کنید، اپ
+        فقط اجازهٔ دیدن و مدیریت <b>فایل‌هایی را می‌خواهد که خودش می‌سازد</b> — نه بقیهٔ درایو شما.
+        آنچه بالا می‌رود از پیش با رمز دفترتان رمز شده، پس نسخهٔ داخل درایو نه برای گوگل خواناست، نه
+        برای ما، نه برای کسی که آن رمز را ندارد. و همین یعنی اگر رمز را فراموش کنید، نسخهٔ ابری هم باز
+        نمی‌شود.</p>
+    </div>
+  </section>
+
+  <footer>
+    <span lang="en">Exon Platform — by Moon Platform</span>
+    <span lang="fa">اکسون پلتفرم — از Moon Platform</span>
+    <a href="privacy.html"><span lang="en">Privacy policy</span><span lang="fa">سیاست حریم خصوصی</span></a>
+    <a href="mailto:behzad.shahidi0@gmail.com">behzad.shahidi0@gmail.com</a>
+  </footer>
+</div>
+
+<script>
+  const body = document.body;
+  const saved = (function () {
+    try { return localStorage.getItem('exon.lang'); } catch (e) { return null; }
+  })();
+
+  function setLang(code) {
+    body.dataset.lang = code;
+    document.documentElement.lang = code;
+    document.documentElement.dir = code === 'fa' ? 'rtl' : 'ltr';
+    for (const button of document.querySelectorAll('.langs button')) {
+      button.setAttribute('aria-pressed', String(button.dataset.set === code));
+    }
+    try { localStorage.setItem('exon.lang', code); } catch (e) { /* private window */ }
+  }
+
+  for (const button of document.querySelectorAll('.langs button')) {
+    button.addEventListener('click', () => setLang(button.dataset.set));
+  }
+
+  // The parentheses matter: without them the saved choice is merely truthy and every visitor who
+  // had ever picked a language got Persian, including the ones who had picked English.
+  setLang(saved || ((navigator.language || '').startsWith('fa') ? 'fa' : 'en'));
+</script>
+
+</body>
+</html>
