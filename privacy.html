@@ -96,9 +96,11 @@
       is written to a database file in the app's private storage on your device. That file is
       encrypted with SQLCipher using a key derived from the password you set when you create a book.
       Without that password the file is unreadable, including by us.</p>
-    <p>The app contains no analytics, no advertising, no crash reporting that leaves the device, and
-      no tracking of any kind. It does not have user accounts, because there is no service to have an
-      account with.</p>
+    <p>The app contains no analytics, no advertising and no tracking of any kind. It does not have
+      user accounts, because there is no service to have an account with. Nothing about a crash is
+      sent anywhere: the app writes a note to a file on your device, and <em>Settings → Report a
+      problem</em> is where you can read that file &mdash; folder paths and your book's name removed
+      &mdash; and send it yourself if you decide to.</p>
 
     <h2>What leaves your device</h2>
     <p>By default, nothing. Five features can send data, and each is something you start:</p>
@@ -106,8 +108,8 @@
       <li><strong>Local network sync.</strong> Your Windows PC and your phone exchange ledger changes
         directly with each other over your own Wi-Fi, after you pair them with a PIN shown on screen.
         The data does not travel over the internet and does not pass through any server.</li>
-      <li><strong>Exporting or sharing a file.</strong> When you export a backup or a statement, it
-        goes wherever you send it. That is your choice and your responsibility.</li>
+      <li><strong>Exporting or sharing a file.</strong> When you export a backup, a statement, or a
+        problem report, it goes wherever you send it. That is your choice and your responsibility.</li>
       <li><strong>Google Drive backup.</strong> Described in full below.</li>
       <li><strong>Checking for a new version.</strong> Because this app is not on any store, it can
         ask the public releases page whether a newer version has been published. The request carries
@@ -228,8 +230,11 @@
     <p>هرچه وارد می‌کنید — مشتریان، معاملات، ارزها، دسته‌بندی‌ها، تنظیمات و تصاویر — در یک فایل
       دیتابیس در حافظهٔ خصوصی اپ روی دستگاه شما نوشته می‌شود. آن فایل با SQLCipher و کلیدی که از رمز
       انتخابی شما ساخته می‌شود رمزگذاری شده است. بدون آن رمز فایل خوانا نیست، برای ما هم.</p>
-    <p>اپ هیچ آنالیتیکسی، هیچ تبلیغی، هیچ گزارش خطایی که دستگاه را ترک کند و هیچ ردیابی‌ای ندارد.
-      حساب کاربری هم ندارد، چون سرویسی وجود ندارد که کسی در آن حساب داشته باشد.</p>
+    <p>اپ هیچ آنالیتیکسی، هیچ تبلیغی و هیچ ردیابی‌ای ندارد. حساب کاربری هم ندارد، چون سرویسی وجود
+      ندارد که کسی در آن حساب داشته باشد. دربارهٔ خطاها هم چیزی خودبه‌خود فرستاده نمی‌شود: اپ
+      یادداشتی در فایلی روی دستگاه خودتان می‌نویسد، و در <em>تنظیمات ← گزارش مشکل</em> می‌توانید
+      همان فایل را بخوانید &mdash; با مسیر پوشه‌ها و نام دفترتان برداشته‌شده &mdash; و اگر خواستید
+      خودتان بفرستید.</p>
 
     <h2>چه چیزی دستگاه شما را ترک می‌کند</h2>
     <p>به‌صورت پیش‌فرض هیچ‌چیز. پنج قابلیت می‌توانند داده بفرستند و هر پنج را خودتان شروع می‌کنید:</p>
@@ -237,8 +242,8 @@
       <li><strong>همگام‌سازی شبکهٔ محلی.</strong> کامپیوتر و گوشی شما تغییرات دفتر را مستقیم روی
         وای‌فای خودتان رد و بدل می‌کنند، بعد از آنکه با پینِ روی صفحه جفتشان کنید. داده از اینترنت
         عبور نمی‌کند و از هیچ سروری رد نمی‌شود.</li>
-      <li><strong>خروجی گرفتن یا اشتراک فایل.</strong> وقتی بک‌اپ یا صورت‌حساب بیرون می‌دهید، هرجا
-        بفرستیدش همان‌جا می‌رود. این انتخاب و مسئولیت شماست.</li>
+      <li><strong>خروجی گرفتن یا اشتراک فایل.</strong> وقتی بک‌اپ، صورت‌حساب یا گزارش مشکل بیرون
+        می‌دهید، هرجا بفرستیدش همان‌جا می‌رود. این انتخاب و مسئولیت شماست.</li>
       <li><strong>بک‌اپ گوگل درایو.</strong> در ادامه به‌طور کامل.</li>
       <li><strong>بررسی نسخهٔ تازه.</strong> چون این اپ روی هیچ فروشگاهی نیست، می‌تواند از صفحهٔ
         عمومی نسخه‌ها بپرسد که آیا نسخهٔ تازه‌ای منتشر شده است. این درخواست هیچ شناسه‌ای همراه ندارد
