@@ -67,11 +67,11 @@
     </div>
     <div lang="en">
       <h1>Privacy Policy</h1>
-      <p class="updated">Last updated: 13 September 2026</p>
+      <p class="updated">Last updated: 19 September 2026</p>
     </div>
     <div lang="fa">
       <h1>سیاست حریم خصوصی</h1>
-      <p class="updated">آخرین به‌روزرسانی: ۲۲ سنبله ۱۴۰۵ (۱۳ سپتامبر ۲۰۲۶)</p>
+      <p class="updated">آخرین به‌روزرسانی: ۲۸ سنبله ۱۴۰۵ (۱۹ سپتامبر ۲۰۲۶)</p>
     </div>
   </header>
 
@@ -80,9 +80,11 @@
     <h2>The short version</h2>
     <div class="note">
       <p>Exon Platform is an offline application. Your ledger is stored on your own device, encrypted
-      with your own password. <strong>We operate no servers and receive no copy of your data.</strong>
-      If you choose to connect Google Drive, your backups go to <strong>your</strong> Drive, already
-      encrypted, and we cannot read them.</p>
+      with your own password. <strong>We keep no copy of it, and there is no account to sign in
+      to.</strong> If you choose to connect Google Drive, your backups go to <strong>your</strong>
+      Drive, already encrypted, and we cannot read them. The one thing that passes through a machine
+      of ours is a question you ask the assistant, on its way to Google &mdash; figures without
+      names, and nothing kept.</p>
     </div>
 
     <h2>Who we are</h2>
@@ -99,7 +101,7 @@
       account with.</p>
 
     <h2>What leaves your device</h2>
-    <p>By default, nothing. Four features can send data, and each is something you start:</p>
+    <p>By default, nothing. Five features can send data, and each is something you start:</p>
     <ul>
       <li><strong>Local network sync.</strong> Your Windows PC and your phone exchange ledger changes
         directly with each other over your own Wi-Fi, after you pair them with a PIN shown on screen.
@@ -113,6 +115,7 @@
         and nothing is downloaded or installed by the app itself; the answer is a version number and
         a link. It is asked only when you press the button on the About screen, or, on a device that
         has already connected Google Drive, at most once a day.</li>
+      <li><strong>Asking the assistant a question.</strong> Described in full below.</li>
     </ul>
 
     <h2>Google user data</h2>
@@ -165,6 +168,38 @@
         never used for advertising, and never read by a human.</p>
     </div>
 
+    <h2>The assistant</h2>
+    <p>The app can answer questions about your own book. There are two ways it can do that, and they
+      are not the same thing:</p>
+    <ul>
+      <li><strong>Offline (Windows only).</strong> You point the app at a model file on your own
+        disk, and the answer is produced on your computer. Nothing is sent anywhere. It works with
+        the network switched off.</li>
+      <li><strong>Online.</strong> The question is answered by Google's Gemini API &mdash; either
+        through an endpoint we run, which adds the key and forwards the request, or straight to
+        Google with a key you entered yourself.</li>
+    </ul>
+    <p>What the online route sends is your question, a short extract of the app's own help text, and
+      figures from your book: balances, totals, what was bought and sold, and the period they cover.</p>
+    <p><strong>Names do not go.</strong> Before a request leaves the device, every customer name,
+      phone number and ID number is replaced by a reference &mdash; <code>C1</code>, <code>C2</code>
+      &mdash; and the real names are put back into the answer on your device afterwards. The list
+      that maps one to the other stays in memory on your device: it is never sent, never written to
+      disk, and never included in a backup.</p>
+    <p>This is worth saying plainly: the free service this feature runs on may use what it receives
+      to improve its own models. Figures without names are still your business, so ask with that in
+      mind. If you would rather nothing at all left the device, use the offline assistant, or do not
+      ask.</p>
+    <p>Our endpoint stores nothing. It holds no database, keeps no copy of a question or an answer,
+      and writes nothing about their contents to a log. It counts requests per internet address for
+      one minute at a time, in memory, to stop a script from spending the quota &mdash; that count is
+      not kept and is not an account of who asked what.</p>
+    <p>The conversation is not saved. It lives in memory while the page is open and is discarded when
+      you leave it, lock the app, switch books or sign out. There is no history for you or anyone
+      else to read afterwards. A key you enter yourself is stored in your operating system's secure
+      storage &mdash; Windows DPAPI or the Android Keystore &mdash; never in the database and never
+      in a backup.</p>
+
     <h2>Children</h2>
     <p>Exon Platform is a business accounting tool and is not directed at children.</p>
 
@@ -178,9 +213,11 @@
     <h2>خلاصه</h2>
     <div class="note">
       <p>اکسون پلتفرم یک برنامهٔ آفلاین است. دفتر شما روی دستگاه خودتان و با رمز خودتان رمزگذاری‌شده
-      ذخیره می‌شود. <strong>ما هیچ سروری نداریم و هیچ نسخه‌ای از اطلاعات شما به دست ما نمی‌رسد.</strong>
-      اگر گوگل درایو را وصل کنید، بک‌اپ‌ها به درایو <strong>خودِ شما</strong> می‌روند، از پیش
-      رمزشده، و ما نمی‌توانیم بخوانیمشان.</p>
+      ذخیره می‌شود. <strong>ما هیچ نسخه‌ای از آن نگه نمی‌داریم و هیچ حسابی هم نیست که واردش
+      شوید.</strong> اگر گوگل درایو را وصل کنید، بک‌اپ‌ها به درایو <strong>خودِ شما</strong>
+      می‌روند، از پیش رمزشده، و ما نمی‌توانیم بخوانیمشان. تنها چیزی که از ماشینی مال ما رد می‌شود
+      سؤالی است که از دستیار می‌پرسید، در راهش به گوگل &mdash; ارقام بدون نام، و هیچ‌چیز
+      نگه‌داشته‌نشده.</p>
     </div>
 
     <h2>ما که هستیم</h2>
@@ -195,7 +232,7 @@
       حساب کاربری هم ندارد، چون سرویسی وجود ندارد که کسی در آن حساب داشته باشد.</p>
 
     <h2>چه چیزی دستگاه شما را ترک می‌کند</h2>
-    <p>به‌صورت پیش‌فرض هیچ‌چیز. چهار قابلیت می‌توانند داده بفرستند و هر چهار را خودتان شروع می‌کنید:</p>
+    <p>به‌صورت پیش‌فرض هیچ‌چیز. پنج قابلیت می‌توانند داده بفرستند و هر پنج را خودتان شروع می‌کنید:</p>
     <ul>
       <li><strong>همگام‌سازی شبکهٔ محلی.</strong> کامپیوتر و گوشی شما تغییرات دفتر را مستقیم روی
         وای‌فای خودتان رد و بدل می‌کنند، بعد از آنکه با پینِ روی صفحه جفتشان کنید. داده از اینترنت
@@ -208,6 +245,7 @@
         &mdash; نه حساب، نه شناسهٔ دستگاه، نه دفتر شما &mdash; و اپ خودش چیزی دانلود یا نصب نمی‌کند؛
         پاسخ فقط یک شمارهٔ نسخه و یک لینک است. این پرسش تنها وقتی انجام می‌شود که دکمه‌اش را در
         صفحهٔ «درباره» بزنید، یا روی دستگاهی که از قبل به گوگل درایو وصل است، حداکثر روزی یک بار.</li>
+      <li><strong>پرسیدن سؤال از دستیار.</strong> در ادامه به‌طور کامل.</li>
     </ul>
 
     <h2>اطلاعات حساب گوگل</h2>
@@ -259,6 +297,37 @@
         بک‌اپی که بالا توضیح داده شد به کار می‌رود؛ هرگز فروخته نمی‌شود، هرگز به دیگری منتقل نمی‌شود،
         هرگز برای تبلیغات استفاده نمی‌شود و هرگز انسانی آن را نمی‌خواند.</p>
     </div>
+
+    <h2>دستیار</h2>
+    <p>اپ می‌تواند به سؤال‌های شما دربارهٔ دفتر خودتان جواب بدهد. این کار دو راه دارد و این دو یکی
+      نیستند:</p>
+    <ul>
+      <li><strong>آفلاین (فقط ویندوز).</strong> خودتان یک فایل مدل روی دیسک خودتان به اپ نشان
+        می‌دهید و جواب روی همان کامپیوتر ساخته می‌شود. هیچ‌چیز جایی فرستاده نمی‌شود و با اینترنت
+        خاموش هم کار می‌کند.</li>
+      <li><strong>آنلاین.</strong> جواب را Gemini گوگل می‌دهد &mdash; یا از راه نشانی‌ای که ما
+        اجرا می‌کنیم و کلید را خودش اضافه و درخواست را رد می‌کند، یا مستقیم به گوگل با کلیدی که
+        خودتان وارد کرده‌اید.</li>
+    </ul>
+    <p>راه آنلاین این‌ها را می‌فرستد: سؤال شما، تکه‌ای کوتاه از متن راهنمای خود اپ، و ارقام دفترتان
+      &mdash; موجودی‌ها، جمع‌ها، خرید و فروش، و دوره‌ای که به آن مربوط‌اند.</p>
+    <p><strong>نام‌ها نمی‌روند.</strong> پیش از آنکه درخواستی دستگاه را ترک کند، نام هر مشتری،
+      شمارهٔ تلفن و شمارهٔ تذکره جایش را به یک نشانه می‌دهد &mdash; <code>C1</code>،
+      <code>C2</code> &mdash; و نام‌های واقعی بعداً روی دستگاه خودتان دوباره سر جایشان می‌نشینند.
+      فهرستی که این دو را به هم وصل می‌کند در حافظهٔ دستگاه شما می‌ماند: نه فرستاده می‌شود، نه روی
+      دیسک نوشته می‌شود و نه در بک‌اپ می‌آید.</p>
+    <p>این را باید صریح گفت: سرویس رایگانی که این قابلیت روی آن کار می‌کند ممکن است از آنچه دریافت
+      می‌کند برای بهتر کردن مدل‌های خودش استفاده کند. ارقام بدون نام هم باز کار و بار شماست، پس با
+      همین حساب بپرسید. اگر ترجیح می‌دهید هیچ‌چیز دستگاه را ترک نکند، از دستیار آفلاین استفاده کنید
+      یا اصلاً نپرسید.</p>
+    <p>نشانی ما چیزی ذخیره نمی‌کند. نه پایگاه داده‌ای دارد، نه نسخه‌ای از سؤال یا جواب نگه می‌دارد،
+      و نه چیزی از محتوای آن‌ها را در هیچ لاگی می‌نویسد. فقط برای جلوگیری از اینکه یک اسکریپت سهمیه
+      را تمام کند، تعداد درخواست‌ها را برای هر نشانی اینترنتی در بازهٔ یک دقیقه در حافظه می‌شمارد؛
+      آن شمارش نگه داشته نمی‌شود و حساب‌وکتاب اینکه چه کسی چه پرسیده نیست.</p>
+    <p>گفت‌وگو ذخیره نمی‌شود. تا وقتی صفحه باز است در حافظه می‌ماند و با بیرون رفتن از صفحه، قفل شدن
+      اپ، عوض کردن دفتر یا خروج از حساب پاک می‌شود. هیچ تاریخچه‌ای نمی‌ماند که بعداً شما یا کس دیگری
+      بخواند. کلیدی هم که خودتان وارد کنید در انبار امن سیستم‌عامل &mdash; DPAPI ویندوز یا Keystore
+      اندروید &mdash; ذخیره می‌شود، نه در دیتابیس و نه در بک‌اپ.</p>
 
     <h2>کودکان</h2>
     <p>اکسون پلتفرم ابزار حسابداری کسب‌وکار است و مخاطبش کودکان نیستند.</p>
