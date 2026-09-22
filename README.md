@@ -5,6 +5,7 @@ Live at **<https://behzad-mim.github.io/exon-platform-site/>**, served by GitHub
 ```
 index.html     the homepage, with the download links
 privacy.html   the privacy policy
+sitemap.xml    the two pages above, named for a crawler
 ```
 
 Both are self-contained: no CDN, no web font to fetch, no build step. Open either one in a browser
@@ -56,3 +57,18 @@ one should be public.
 
 The installers live in a separate repository, and no source is published in either:
 <https://github.com/Behzad-Mim/exon-platform-releases>
+
+## Being found
+
+The homepage went unindexed for its first weeks while the privacy policy did, and the reason was
+plain once looked at: every release note links the privacy policy, so that was the only page
+anything ever pointed a crawler at. A page nothing links to is a page nothing finds.
+
+So: `sitemap.xml` names both, and it is submitted through Search Console — a **URL prefix**
+property, verified with the HTML file Google hands out, which needs no domain of one's own. There
+is deliberately no `robots.txt` here: a crawler reads that from the host root,
+`behzad-mim.github.io/robots.txt`, which belongs to a user-site repository that does not exist. One
+placed in this folder is read by nothing.
+
+The title and the description carry Persian as well as English, because «exon platform» is not what
+the people this is for would ever type. They type «برنامه صرافی».

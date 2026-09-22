@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Two pages, named for a crawler that has never been sent here.
+
+    The homepage was the one page nothing linked to: every release note links the privacy policy, so
+    that is the only page a crawler ever found a door to, and it is the only one that was indexed.
+    This is the door to the other one.
+
+    There is no robots.txt beside this file on purpose. A crawler reads robots.txt from the HOST
+    root — https://behzad-mim.github.io/robots.txt — which belongs to a user-site repository that
+    does not exist, and one placed in this project's folder is never read by anything. The sitemap
+    is submitted in Search Console instead, which is what actually reaches Google.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://behzad-mim.github.io/exon-platform-site/</loc>
+    <lastmod>2026-09-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://behzad-mim.github.io/exon-platform-site/privacy.html</loc>
+    <lastmod>2026-09-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+</urlset>
