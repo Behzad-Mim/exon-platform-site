@@ -64,11 +64,18 @@ The homepage went unindexed for its first weeks while the privacy policy did, an
 plain once looked at: every release note links the privacy policy, so that was the only page
 anything ever pointed a crawler at. A page nothing links to is a page nothing finds.
 
-So: `sitemap.xml` names both, and it is submitted through Search Console — a **URL prefix**
-property, verified with the HTML file Google hands out, which needs no domain of one's own. There
-is deliberately no `robots.txt` here: a crawler reads that from the host root,
-`behzad-mim.github.io/robots.txt`, which belongs to a user-site repository that does not exist. One
-placed in this folder is read by nothing.
+So: `sitemap.xml` names both. It is submitted through Search Console — a **URL prefix** property,
+verified with the HTML file Google hands out, which needs no domain of one's own — and it is also
+named in `robots.txt` at the host root, which is how a crawler finds a sitemap without anybody
+submitting it anywhere. That file cannot live here: a crawler reads robots.txt from the HOST root,
+`behzad-mim.github.io/robots.txt`, so it lives in the `Behzad-Mim.github.io` repository, which is
+also now a small landing page rather than a 404 — one more door to this site, which had none.
+
+The sitemap itself is deliberately dull: two `<loc>`s, two `<lastmod>`s, and nothing else. It began
+with an explanatory comment and with `<changefreq>` and `<priority>`, and Search Console answered
+«Sitemap could not be read» for a file that parsed cleanly everywhere else. Google ignores both of
+those elements by its own documentation, and a comment buys a crawler nothing — so the explanation
+lives here, in the file people read, and the machine file has nothing in it to misread.
 
 The title and the description carry Persian as well as English, because «exon platform» is not what
 the people this is for would ever type. They type «برنامه صرافی».
