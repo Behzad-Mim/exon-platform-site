@@ -304,7 +304,7 @@ body[data-lang="fa"] .chip { font: 500 13px/1 var(--sans); letter-spacing: 0; }
 .stage__ring--2::after { content: ""; position: absolute; top: 14%; inset-inline-end: 12%; width: 8px; height: 8px;
   border-radius: 50%; background: var(--moonlight); box-shadow: 0 0 16px var(--accent); }
 @keyframes orbit { to { transform: rotate(360deg); } }
-.stage__icon { position: relative; width: 44%; border-radius: 24%;
+.stage__icon { position: relative; width: 44%; height: auto; aspect-ratio: 1; border-radius: 24%;
   box-shadow: 0 30px 60px -20px rgba(0, 0, 0, .8), 0 0 0 1px rgba(255, 255, 255, .08), 0 0 80px -10px rgba(124, 108, 246, .9); }
 .stage__tag { position: absolute; display: inline-flex; align-items: center; gap: var(--s2); padding: var(--s2) var(--s3);
   border-radius: 999px; font-size: 13px; color: var(--text-primary); white-space: nowrap; }
