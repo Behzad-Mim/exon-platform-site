@@ -1,0 +1,27 @@
+# Copy to wrangler.toml, then `npx wrangler deploy` from this folder. The real file is gitignored,
+# like every worker's in this project: a deploy can write the account's id into it.
+
+name = "moonplatform-site"
+main = "worker.js"
+compatibility_date = "2026-09-01"
+
+# The site answers on the owner's own domain only. www and plain http are sent to the bare
+# https address by the worker itself.
+workers_dev = false
+routes = [
+  { pattern = "moonplatform.app", custom_domain = true },
+  { pattern = "www.moonplatform.app", custom_domain = true },
+]
+
+# The pages are the files in public/. The worker runs first
+# for every request: it owns the redirects (www, http, /download, /latest) and hands the rest on.
+[assets]
+directory = "./public"
+binding = "ASSETS"
+run_worker_first = true
+html_handling = "auto-trailing-slash"
+not_found_handling = "404-page"
+
+# Nothing about a visitor is written down anywhere.
+[observability]
+enabled = false

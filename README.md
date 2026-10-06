@@ -1,41 +1,88 @@
 # The Exon Platform site
 
-Live at **<https://behzad-mim.github.io/exon-platform-site/>**, served by GitHub Pages from `main`.
+Live at **<https://moonplatform.app/>** — Moon Platform's own domain, served by a Cloudflare Worker
+from this folder (since 6 Oct 2026). Before that it was GitHub Pages at
+`https://behzad-mim.github.io/exon-platform-site/`, and that address still answers: see below.
 
 ```
-index.html     the homepage, with the download links
-privacy.html   the privacy policy
-sitemap.xml    the two pages above, named for a crawler
+public/                     the site, as Cloudflare serves it
+  index.html                the homepage, with the download links
+  privacy.html              the privacy policy                     → /privacy
+  404.html                  any address that is not a page
+  robots.txt, sitemap.xml   for crawlers, naming moonplatform.app
+  google….html              Google's ownership file, for Search Console
+worker.js                   the redirects: www and http, /download…, /latest
+wrangler.toml.example       the worker's config; copy to wrangler.toml (gitignored) to deploy
+
+index.html, privacy.html    GitHub Pages only: forward the old address to the new one
+sitemap.xml, google….html   GitHub Pages only: what Search Console knows the old address by
 ```
 
-Both are self-contained: no CDN, no web font to fetch, no build step. Open either one in a browser
-and it works. English and Persian live in the same file behind a toggle, each with its own `lang`
-and `dir`.
+The pages are self-contained: no CDN, no web font to fetch, no build step. Open either one in a
+browser and it works. English and Persian live in the same file behind a toggle, each with its own
+`lang` and `dir`.
 
-## Why these two pages exist
+## The addresses
+
+| Address | What answers |
+| --- | --- |
+| `https://moonplatform.app/` | the homepage |
+| `https://moonplatform.app/privacy` | the privacy policy (`/privacy.html` redirects here) |
+| `https://moonplatform.app/download/android` | the newest APK, straight from the latest GitHub release |
+| `https://moonplatform.app/download/windows` | the newest Windows ZIP, the same way |
+| `https://moonplatform.app/download` | the newest release's page: notes, sizes, checksums |
+| `https://moonplatform.app/latest` | what the app asks for updates: GitHub's own redirect to `/releases/tag/vX.Y.Z`, handed on unchanged (kept 10 minutes) |
+| `https://www.moonplatform.app/…`, `http://…` | 301 to the same path on `https://moonplatform.app` |
+
+The installers stay among GitHub's releases in `Behzad-Mim/exon-platform-releases`; this only points
+at them. If they ever move, `worker.js` changes and every printed QR code and every installed app
+follows — which is the whole reason the app and the printouts name this domain and not GitHub.
+
+From 1.3.10 the app asks `/latest` first and GitHub directly only when this does not answer, and
+the «ساخته‌شده با Exon Platform» line at the end of every export names `moonplatform.app`.
+
+## The old address
+
+Printed statements and release notes made before 1.3.10 point at
+`behzad-mim.github.io/exon-platform-site/`. Paper cannot be reprinted, so GitHub Pages keeps serving
+this repository's root, where `index.html` and `privacy.html` are now one-line forwarders (a
+meta refresh, a script, and a canonical link) to the same page here. Leave them, and leave Pages on.
+
+## Deploying
+
+From this folder, with the owner's Cloudflare account logged in (`npx wrangler login`):
+
+```bash
+cp wrangler.toml.example wrangler.toml   # once
+npx wrangler deploy
+```
+
+The custom domains in the config are created by the deploy itself, certificates included. Then
+push the repository as before, for the GitHub Pages side:
+
+```bash
+git add -A && git commit -m "..." && git push
+```
+
+## Google
 
 Google will not publish an OAuth consent screen to production without a **homepage URL** and a
-**privacy policy URL**. That matters more than it sounds: while the consent screen sits in *Testing*,
-Google expires the refresh token every 7 days, and the app would ask the owner to sign in to Google
-again every week for as long as it is used.
+**privacy policy URL** on a domain the owner has verified. That matters more than it sounds: while
+the consent screen sits in *Testing*, Google expires the refresh token every 7 days, and the app
+would ask the owner to sign in to Google again every week for as long as it is used.
 
 What goes in the Google Cloud console, under **Google Auth Platform → Branding**:
 
 | Field | Value |
 | --- | --- |
-| Application home page | `https://behzad-mim.github.io/exon-platform-site/` |
-| Application privacy policy link | `https://behzad-mim.github.io/exon-platform-site/privacy.html` |
-| Authorized domains | `github.io` |
+| Application home page | `https://moonplatform.app/` |
+| Application privacy policy link | `https://moonplatform.app/privacy` |
+| Authorized domains | `moonplatform.app` |
 
-Then **Audience → Publish app** stops being greyed out.
-
-## Updating it
-
-Edit the file and push. Pages rebuilds on its own, usually within a minute.
-
-```bash
-git add -A && git commit -m "..." && git push
-```
+The domain is verified in Search Console as a **Domain** property, by a TXT record in the zone's DNS
+on Cloudflare — Search Console may offer to add it itself after a sign-in to Cloudflare; otherwise
+it is pasted into Cloudflare ▸ moonplatform.app ▸ DNS ▸ Add record. (The Google file in `public/`
+also lets a URL-prefix property verify, if that is ever wanted.)
 
 ## Before changing anything, check these are still true
 
@@ -43,7 +90,10 @@ The privacy policy makes specific promises. Each is accurate as the app stands, 
 re-checked if the app changes:
 
 - no analytics, no advertising, no telemetry, no crash reports leaving the device
-- no servers operated by us, and no user accounts
+- no user accounts; the only machines of ours that anything passes through are the relay
+  (employees outside the shop — bytes it cannot read, one key hash per shop kept), the assistant
+  endpoint (figures without names, nothing kept), and this site's `/latest` (no identifier,
+  nothing kept)
 - the ledger is SQLCipher-encrypted with a key derived from the owner's password
 - cloud backups are encrypted **before** upload, with a key derived from the book password
 - the only Google scopes requested are `openid`, `userinfo.email` and `drive.file`
@@ -60,22 +110,14 @@ The installers live in a separate repository, and no source is published in eith
 
 ## Being found
 
-The homepage went unindexed for its first weeks while the privacy policy did, and the reason was
-plain once looked at: every release note links the privacy policy, so that was the only page
-anything ever pointed a crawler at. A page nothing links to is a page nothing finds.
+`public/sitemap.xml` names both pages, and `public/robots.txt` names the sitemap, which is how a
+crawler finds it without anybody submitting it anywhere. In Search Console, submit `sitemap.xml` on
+the moonplatform.app property too.
 
-So: `sitemap.xml` names both. It is submitted through Search Console — a **URL prefix** property,
-verified with the HTML file Google hands out, which needs no domain of one's own — and it is also
-named in `robots.txt` at the host root, which is how a crawler finds a sitemap without anybody
-submitting it anywhere. That file cannot live here: a crawler reads robots.txt from the HOST root,
-`behzad-mim.github.io/robots.txt`, so it lives in the `Behzad-Mim.github.io` repository, which is
-also now a small landing page rather than a 404 — one more door to this site, which had none.
-
-The sitemap itself is deliberately dull: two `<loc>`s, two `<lastmod>`s, and nothing else. It began
+The sitemap is deliberately dull: two `<loc>`s, two `<lastmod>`s, and nothing else. It once began
 with an explanatory comment and with `<changefreq>` and `<priority>`, and Search Console answered
 «Sitemap could not be read» for a file that parsed cleanly everywhere else. Google ignores both of
-those elements by its own documentation, and a comment buys a crawler nothing — so the explanation
-lives here, in the file people read, and the machine file has nothing in it to misread.
+those elements by its own documentation, and a comment buys a crawler nothing.
 
 The title and the description carry Persian as well as English, because «exon platform» is not what
 the people this is for would ever type. They type «برنامه صرافی».

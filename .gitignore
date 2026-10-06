@@ -1,0 +1,5 @@
+# The worker's own config: a deploy can write the account's id into it. The example beside it is
+# the same file without that.
+wrangler.toml
+.wrangler/
+node_modules/
