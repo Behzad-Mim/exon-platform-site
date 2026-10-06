@@ -105,9 +105,11 @@ re-checked if the app changes:
 - the only Google scopes requested are `openid`, `userinfo.email` and `drive.file`
 - the Google token is kept in DPAPI / Android Keystore, never in a backup or an export
 
-The contact address on the pages is `behzad.shahidi0@gmail.com` — the same one Google shows on the
-consent screen, and the one people will actually write to. Change it in both files if a different
-one should be public.
+The addresses on the pages are Moon Platform's own, forwarded by Cloudflare Email Routing to the
+owner's Gmail (6 Oct 2026): `contact@moonplatform.app` on the home page, `support@moonplatform.app`
+on Exon's page and in its privacy policy (and in the app's support page from 1.3.11). `info@` is set
+up too and not yet used. The Google consent screen keeps the Gmail address: Google accepts only an
+address of the signed-in account or one of its groups there. WhatsApp is +93 79 226 8198.
 
 ## Related
 
