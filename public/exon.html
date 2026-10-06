@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Exon Platform — hawala and currency exchange ledger | دفتر صرافی و حواله</title>
+<meta name="title-en" content="Exon Platform — the offline ledger for hawala and currency exchange">
+<meta name="title-fa" content="اکسون پلتفرم — دفتر صرافی، حواله و تبادله ارز">
+<meta name="description" content="برنامهٔ حسابداری صرافی: حواله، رسید و برد، تبادلهٔ اسعار، حساب مشتریان و بیلانس روزانه — بدون اینترنت و رمزگذاری‌شده روی همان دستگاه. برای ویندوز و اندروید. An offline, encrypted ledger for hawala and currency exchange.">
+<meta name="keywords" content="صرافی, حواله, دفتر صرافی, حسابداری صرافی, تبادله اسعار, بیلانس, hawala, currency exchange, ledger, Afghanistan">
+<link rel="canonical" href="https://moonplatform.app/exon">
+<link rel="icon" href="/assets/exon-icon.png" type="image/png">
+<meta name="theme-color" content="#04050b">
+<meta property="og:title" content="Exon Platform — دفتر صرافی، حواله و تبادله ارز">
+<meta property="og:description" content="دفتر صرافی که بدون اینترنت کار می‌کند و روی دستگاه خودتان رمزگذاری می‌شود. ویندوز و اندروید.">
+<meta property="og:url" content="https://moonplatform.app/exon">
+<meta property="og:image" content="https://moonplatform.app/assets/exon-icon.png">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="/assets/moon.css">
+<script src="/assets/moon.js" defer></script>
+</head>
+<body data-lang="en">
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-monitor" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="3" rx="2"/><path d="M8 21h8M12 17v4"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><rect width="14" height="20" x="5" y="2" rx="2"/><path d="M12 18h.01"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+  <symbol id="i-offline" viewBox="0 0 24 24"><path d="M12 20h.01M8.5 16.43a5 5 0 0 1 7 0M5 12.86a10 10 0 0 1 5.17-2.69M19 12.86a10 10 0 0 0-2-1.52M2 8.82a15 15 0 0 1 4.18-2.64M22 8.82a15 15 0 0 0-11.29-3.76M2 2l20 20"/></symbol>
+  <symbol id="i-devices" viewBox="0 0 24 24"><rect width="12" height="9" x="2" y="4" rx="1.5"/><path d="M5 17h6"/><rect width="7" height="12" x="15" y="8" rx="1.5"/></symbol>
+  <symbol id="i-coins" viewBox="0 0 24 24"><circle cx="8" cy="8" r="6"/><path d="M18.09 10.37A6 6 0 1 1 10.34 18"/><path d="M7 6h1v4"/><path d="m16.71 13.88.7.71-2.82 2.82"/></symbol>
+  <symbol id="i-lang" viewBox="0 0 24 24"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></symbol>
+  <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8M16 13H8M16 17H8"/></symbol>
+  <symbol id="mark" viewBox="0 0 32 32"><defs><linearGradient id="mg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".55" stop-color="#dfe5fa"/><stop offset="1" stop-color="#7d92d9"/></linearGradient><mask id="mm"><rect width="32" height="32" fill="#fff"/><circle cx="21.5" cy="10.5" r="10.5" fill="#000"/></mask></defs><circle cx="15" cy="17" r="12" fill="url(#mg)" mask="url(#mm)"/><circle cx="25.5" cy="6.5" r="1.7" fill="#ffbf73"/></symbol>
+</svg>
+
+<div class="sky" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<a class="skip" href="#main"><span data-l="en" lang="en">Skip to content</span><span data-l="fa" lang="fa">رفتن به محتوا</span></a>
+
+<header class="bar">
+  <div class="wrap bar__in">
+    <a class="brand" href="/" aria-label="Moon Platform"><svg aria-hidden="true"><use href="#mark"/></svg>Moon Platform</a>
+    <nav class="nav" aria-label="Sections">
+      <a href="/#apps"><span data-l="en" lang="en">Apps</span><span data-l="fa" lang="fa">اپ‌ها</span></a>
+      <a href="/#games"><span data-l="en" lang="en">Games</span><span data-l="fa" lang="fa">بازی‌ها</span></a>
+      <a href="/#tools"><span data-l="en" lang="en">Windows Tools</span><span data-l="fa" lang="fa">ابزارهای ویندوز</span></a>
+    </nav>
+    <div class="langs" role="group" aria-label="Language">
+      <button type="button" data-set-lang="en" aria-pressed="true" lang="en">EN</button>
+      <button type="button" data-set-lang="fa" aria-pressed="false" lang="fa">فا</button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <section class="page-hero">
+    <div class="wrap">
+      <a class="crumb hud" href="/#apps"><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg>
+        <span data-l="en">Moon Platform / Apps</span><span data-l="fa">Moon Platform / اپ‌ها</span></a>
+
+      <div class="page-hero__grid">
+      <div>
+      <div class="exon-head" data-reveal>
+        <img src="/assets/exon-icon.png" width="112" height="112" alt="Exon Platform">
+        <div style="display:grid;gap:var(--s4)">
+          <h1 class="display" style="font-size:clamp(40px,6vw,76px)">
+            <span data-l="en" lang="en">Exon Platform</span><span data-l="fa" lang="fa">اکسون پلتفرم</span>
+          </h1>
+          <p class="lead">
+            <span data-l="en" lang="en">A ledger that works with the internet off. It keeps the books for a hawala and
+              currency-exchange business — transfers, cash in and out, exchanges, customer accounts and daily balance
+              sheets — on your own device, encrypted with your own password.</span>
+            <span data-l="fa" lang="fa">دفتری که بدون اینترنت کار می‌کند. حساب‌های یک صرافی و حواله را نگه می‌دارد —
+              ارسال و دریافت حواله، رسید و برد نقد، تبادله، حساب مشتریان و بیلانس روزانه — روی دستگاه خودتان و
+              رمزگذاری‌شده با رمز خودتان.</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="btns" style="margin-top:var(--s10);--d:80ms" data-reveal>
+        <a class="btn btn--primary" href="/exon/download/windows">
+          <svg class="icon" aria-hidden="true"><use href="#i-monitor"/></svg>
+          <span data-l="en" lang="en">Download for Windows</span><span data-l="fa" lang="fa">دانلود برای ویندوز</span>
+        </a>
+        <a class="btn btn--glass" href="/exon/download/android">
+          <svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg>
+          <span data-l="en" lang="en">Download for Android</span><span data-l="fa" lang="fa">دانلود برای اندروید</span>
+        </a>
+      </div>
+      <p class="muted" style="margin:var(--s5) 0 0;max-width:70ch;font-size:15px" data-reveal>
+        <span data-l="en" lang="en">Windows 10 or newer, 64-bit: a ZIP with nothing to install first — unzip it and run
+          ExonPlatform.exe. Android 5.0 or newer: an APK you install yourself, so the phone asks once to allow it; the
+          app is not on Google Play.</span>
+        <span data-l="fa" lang="fa">ویندوز ۱۰ یا بالاتر، ۶۴ بیتی: یک فایل ZIP که به نصب هیچ چیز دیگری نیاز ندارد — بازش
+          کنید و ExonPlatform.exe را اجرا کنید. اندروید ۵ یا بالاتر: فایل APK که خودتان نصب می‌کنید، پس گوشی یک بار
+          اجازه می‌خواهد؛ این اپ روی گوگل پلی نیست.</span>
+      </p>
+      <a class="link-arrow" style="margin-top:var(--s4)" href="/exon/download" data-reveal>
+        <svg class="icon" aria-hidden="true"><use href="#i-file"/></svg>
+        <span data-l="en" lang="en">What is new in this version, with each file's exact size and checksum</span>
+        <span data-l="fa" lang="fa">تازه‌های این نسخه، با حجم دقیق و هش هر فایل</span>
+      </a>
+      </div>
+
+      <div class="stage" aria-hidden="true" data-reveal style="--d:120ms">
+        <span class="stage__ring stage__ring--2"></span>
+        <span class="stage__ring stage__ring--1"></span>
+        <img class="stage__icon" src="/assets/exon-icon.png" width="256" height="256" alt="">
+        <span class="stage__tag stage__tag--a glass"><svg class="icon"><use href="#i-offline"/></svg><span data-l="en">Works offline</span><span data-l="fa">بدون اینترنت</span></span>
+        <span class="stage__tag stage__tag--b glass"><svg class="icon"><use href="#i-lock"/></svg><span data-l="en">Encrypted on device</span><span data-l="fa">رمزدار روی دستگاه</span></span>
+        <span class="stage__tag stage__tag--c glass"><svg class="icon"><use href="#i-devices"/></svg><span data-l="en">PC + phone</span><span data-l="fa">کامپیوتر + گوشی</span></span>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <section class="section" style="padding-top:var(--s16)" aria-labelledby="what-title">
+      <div class="section__head">
+        <p class="hud"><span data-l="en">What it does</span><span data-l="fa">چه می‌کند</span></p>
+        <h2 class="h1" id="what-title">
+          <span data-l="en" lang="en">Made for the counter, not the cloud.</span>
+          <span data-l="fa" lang="fa">ساخته برای پیشخوان، نه برای ابر.</span>
+        </h2>
+      </div>
+
+      <div class="grid3">
+        <article class="feature glass" data-reveal>
+          <svg class="icon" aria-hidden="true"><use href="#i-offline"/></svg>
+          <h3><span data-l="en" lang="en">Offline first</span><span data-l="fa" lang="fa">اول آفلاین</span></h3>
+          <p><span data-l="en" lang="en">No account to create, no server to reach. The app opens and works with the
+            network off — which is the point, not a fallback.</span>
+            <span data-l="fa" lang="fa">نه حسابی برای ساختن، نه سروری برای رسیدن. اپ با اینترنت خاموش باز می‌شود و کار
+            می‌کند — و این هدف است، نه راه دوم.</span></p>
+        </article>
+        <article class="feature glass" data-reveal style="--d:60ms">
+          <svg class="icon" aria-hidden="true"><use href="#i-lock"/></svg>
+          <h3><span data-l="en" lang="en">Encrypted on the device</span><span data-l="fa" lang="fa">رمزدار روی دستگاه</span></h3>
+          <p><span data-l="en" lang="en">The book is a SQLCipher database locked with a key derived from your password. A
+            copied file is ciphertext, not a customer list.</span>
+            <span data-l="fa" lang="fa">دفتر یک دیتابیس SQLCipher است که با کلیدی از رمز شما قفل می‌شود. فایلِ کپی‌شده
+            متن رمزشده است، نه فهرست مشتریان.</span></p>
+        </article>
+        <article class="feature glass" data-reveal style="--d:120ms">
+          <svg class="icon" aria-hidden="true"><use href="#i-coins"/></svg>
+          <h3><span data-l="en" lang="en">Several currencies in one deal</span><span data-l="fa" lang="fa">چند ارز در یک معامله</span></h3>
+          <p><span data-l="en" lang="en">Afghani and dollars in the same transfer, each side of the account moving
+            correctly, and every currency inside a document netting to zero.</span>
+            <span data-l="fa" lang="fa">افغانی و دالر در یک حواله، هر طرف حساب درست جابه‌جا می‌شود و هر ارز داخل یک سند
+            به صفر می‌رسد.</span></p>
+        </article>
+        <article class="feature glass" data-reveal>
+          <svg class="icon" aria-hidden="true"><use href="#i-lang"/></svg>
+          <h3><span data-l="en" lang="en">Three languages</span><span data-l="fa" lang="fa">سه زبان</span></h3>
+          <p><span data-l="en" lang="en">Persian, Pashto and English, with the Hijri Shamsi calendar and Persian digits
+            where they belong.</span>
+            <span data-l="fa" lang="fa">فارسی، پشتو و انگلیسی، با تقویم هجری شمسی و ارقام فارسی هرجا که باید.</span></p>
+        </article>
+        <article class="feature glass" data-reveal style="--d:60ms">
+          <svg class="icon" aria-hidden="true"><use href="#i-devices"/></svg>
+          <h3><span data-l="en" lang="en">Windows and Android</span><span data-l="fa" lang="fa">ویندوز و اندروید</span></h3>
+          <p><span data-l="en" lang="en">The same ledger on a desktop and a phone, syncing directly over the shop's own
+            network. Staff work from their own phones, with their own sign-in.</span>
+            <span data-l="fa" lang="fa">یک دفتر روی کامپیوتر و گوشی، که مستقیم روی شبکهٔ خود دکان همگام می‌شوند.
+            کارمندان از گوشی خودشان و با ورود خودشان کار می‌کنند.</span></p>
+        </article>
+        <article class="feature glass" data-reveal style="--d:120ms">
+          <svg class="icon" aria-hidden="true"><use href="#i-cloud"/></svg>
+          <h3><span data-l="en" lang="en">Your backups, yours</span><span data-l="fa" lang="fa">بک‌اپ‌ها مال خودتان</span></h3>
+          <p><span data-l="en" lang="en">Backups stay on the device, and optionally in a folder of your own Google Drive —
+            encrypted before they leave.</span>
+            <span data-l="fa" lang="fa">بک‌اپ روی دستگاه می‌ماند و اگر بخواهید در پوشه‌ای از گوگل درایو خودتان —
+            رمزشده، پیش از آنکه دستگاه را ترک کند.</span></p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:var(--s20)" aria-labelledby="google-title">
+      <div class="note glass" data-reveal>
+        <p class="hud" style="margin:0 0 var(--s3)"><span data-l="en">About the Google connection</span><span data-l="fa">دربارهٔ اتصال گوگل</span></p>
+        <h2 class="h2" id="google-title" style="margin-bottom:var(--s3)">
+          <span data-l="en" lang="en">Only the files it makes. Encrypted first.</span>
+          <span data-l="fa" lang="fa">فقط فایل‌هایی که خودش می‌سازد. اول رمزشده.</span>
+        </h2>
+        <p style="margin:0">
+          <span data-l="en" lang="en">Connecting Google is optional and off until you turn it on. When you do, the app asks
+            only for permission to see and manage <strong>the files it creates itself</strong> in your Drive — never the
+            rest of it. What it uploads is already encrypted with your book password, so the copy in your Drive cannot be
+            read by Google, by us, or by anyone who does not have that password. That also means that if you forget it,
+            the cloud copy cannot be opened either.</span>
+          <span data-l="fa" lang="fa">اتصال گوگل اختیاری است و تا خودتان روشنش نکنید خاموش می‌ماند. وقتی روشن کنید، اپ
+            فقط اجازهٔ دیدن و مدیریت <strong>فایل‌هایی را می‌خواهد که خودش می‌سازد</strong> — نه بقیهٔ درایو شما. آنچه
+            بالا می‌رود از پیش با رمز دفترتان رمز شده، پس نسخهٔ داخل درایو نه برای گوگل خواناست، نه برای ما، نه برای
+            کسی که آن رمز را ندارد. و همین یعنی اگر رمز را فراموش کنید، نسخهٔ ابری هم باز نمی‌شود.</span>
+        </p>
+        <a class="link-arrow" style="margin-top:var(--s5)" href="/exon/privacy">
+          <span data-l="en" lang="en">Read the privacy policy</span><span data-l="fa" lang="fa">سیاست حریم خصوصی را بخوانید</span>
+          <svg class="icon icon--dir" aria-hidden="true"><use href="#i-arrow"/></svg>
+        </a>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot__in">
+    <a class="brand" href="/" aria-label="Moon Platform"><svg aria-hidden="true"><use href="#mark"/></svg>Moon Platform</a>
+    <span class="muted">
+      <span data-l="en" lang="en">Exon Platform — by Moon Platform</span><span data-l="fa" lang="fa">اکسون پلتفرم — از Moon Platform</span>
+    </span>
+    <nav class="foot__links" aria-label="Footer">
+      <a href="/exon/privacy"><span data-l="en" lang="en">Privacy policy</span><span data-l="fa" lang="fa">سیاست حریم خصوصی</span></a>
+      <a href="https://wa.me/93792268198"><span data-l="en" lang="en">WhatsApp</span><span data-l="fa" lang="fa">واتساپ</span></a>
+      <a href="mailto:behzad.shahidi0@gmail.com">behzad.shahidi0@gmail.com</a>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>

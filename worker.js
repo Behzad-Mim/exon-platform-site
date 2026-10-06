@@ -1,13 +1,15 @@
 // moonplatform.app — Moon Platform's own address, served by Cloudflare.
 //
-// Three things live here:
+// What lives here:
 //
-//   - the Exon Platform site: the homepage and the privacy policy, the files beside this one;
-//   - short download links that stay where they are while the files behind them move —
-//       /download/android   the newest APK
-//       /download/windows   the newest Windows ZIP
-//       /download           the newest release's page, with its notes, sizes and checksums
-//   - /latest, which the app asks to learn whether a newer build has been published.
+//   - Moon Platform's site — the home page with Apps, Games and Windows Tools, and each product's
+//     own pages under its own path (Exon Platform: /exon, /exon/privacy) — the files in public/;
+//   - for each released app, short download links that stay where they are while the files behind
+//     them move —
+//       /exon/download/android   the newest APK
+//       /exon/download/windows   the newest Windows ZIP
+//       /exon/download           the newest release's page, with its notes, sizes and checksums
+//   - /exon/latest, which the app asks to learn whether a newer build has been published.
 //
 // The installers themselves stay among GitHub's releases; this only points at them. If they ever
 // move, these few lines change, and every printed QR code and every installed app follows.
@@ -16,8 +18,13 @@ const APEX = "moonplatform.app";
 const RELEASES = "https://github.com/Behzad-Mim/exon-platform-releases/releases";
 
 const FILES = {
-  "/download/android": "ExonPlatform-Android.apk",
-  "/download/windows": "ExonPlatform-Windows-x64.zip",
+  "/exon/download/android": "ExonPlatform-Android.apk",
+  "/exon/download/windows": "ExonPlatform-Windows-x64.zip",
+};
+
+// Addresses people may type for a page that lives elsewhere.
+const MOVED = {
+  "/privacy": "/exon/privacy",
 };
 
 // How long one answer from GitHub is used again. Releases come weeks apart; a new one shows here
@@ -41,11 +48,14 @@ export default {
     if (Object.hasOwn(FILES, path))
       return away(`${RELEASES}/latest/download/${FILES[path]}`);
 
-    if (path === "/download")
+    if (path === "/exon/download")
       return away(`${RELEASES}/latest`);
 
-    if (path === "/latest")
+    if (path === "/exon/latest")
       return latest(ctx);
+
+    if (Object.hasOwn(MOVED, path))
+      return Response.redirect(new URL(MOVED[path], url).toString(), 301);
 
     // Google's ownership file is fetched by its exact name, .html and all, and must answer 200
     // there — not the redirect to the bare name that every other page gets.
@@ -68,7 +78,7 @@ function away(location) {
 // last segment — handed on unchanged, so the app reads it exactly as it reads GitHub's.
 async function latest(ctx) {
   const cache = caches.default;
-  const key = new Request(`https://${APEX}/latest`);
+  const key = new Request(`https://${APEX}/exon/latest`);
 
   const kept = await cache.match(key);
   if (kept)

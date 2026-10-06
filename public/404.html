@@ -1,27 +1,38 @@
 <!doctype html>
-<html lang="fa" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>صفحه پیدا نشد — Exon Platform</title>
-<style>
-  :root{--bg:#0b1220;--line:#1f2c44;--ink:#e6edf7;--dim:#93a3bd;--accent:#3b82f6}
-  @media (prefers-color-scheme:light){:root{--bg:#f7f9fc;--line:#e2e8f2;--ink:#0f172a;--dim:#5b6b85}}
-  *{box-sizing:border-box}
-  body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;
-    background:var(--bg);color:var(--ink);padding:24px 16px;
-    font:16px/1.8 -apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;text-align:center}
-  h1{font-size:22px;margin:0 0 8px}
-  p{color:var(--dim);margin:0 0 6px}
-  a{color:var(--accent)}
-</style>
+<title>Not here — Moon Platform</title>
+<meta name="title-en" content="Not here — Moon Platform">
+<meta name="title-fa" content="اینجا نیست — Moon Platform">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#04050b">
+<link rel="stylesheet" href="/assets/moon.css">
+<script src="/assets/moon.js" defer></script>
 </head>
-<body>
-<main>
-  <h1>این صفحه اینجا نیست</h1>
-  <p lang="en" dir="ltr">There is no page at this address.</p>
-  <p><a href="/">صفحهٔ اصلی Exon Platform</a> · <a href="/download" lang="en" dir="ltr">Download</a></p>
+<body data-lang="en">
+<div class="sky" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<main class="wrap" style="min-height:100dvh;display:grid;place-items:center;text-align:center">
+  <div style="display:grid;gap:var(--s5);justify-items:center">
+    <div class="newmoon" aria-hidden="true" style="width:110px;height:110px"></div>
+    <p class="hud">404</p>
+    <h1 class="h1">
+      <span data-l="en" lang="en">Nothing at this address.</span>
+      <span data-l="fa" lang="fa">در این نشانی چیزی نیست.</span>
+    </h1>
+    <div class="btns" style="justify-content:center">
+      <a class="btn btn--primary" href="/"><span data-l="en" lang="en">Moon Platform</span><span data-l="fa" lang="fa">صفحهٔ اصلی</span></a>
+      <a class="btn btn--glass" href="/exon"><span data-l="en" lang="en">Exon Platform</span><span data-l="fa" lang="fa">اکسون پلتفرم</span></a>
+    </div>
+    <div class="langs" role="group" aria-label="Language">
+      <button type="button" data-set-lang="en" aria-pressed="true" lang="en">EN</button>
+      <button type="button" data-set-lang="fa" aria-pressed="false" lang="fa">فا</button>
+    </div>
+  </div>
 </main>
 </body>
 </html>
