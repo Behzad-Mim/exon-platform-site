@@ -183,7 +183,7 @@ async function contact(request, env) {
   const name = line(data.name, 100);
   const email = line(data.email, 200);
   const message = typeof data.message === "string" ? data.message.replace(/\r\n?/g, "\n").trim().slice(0, 4000) : "";
-  if (!name || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email) || message.length < 5) return json({ ok: false }, 400);
+  if (!name || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email) || !message) return json({ ok: false }, 400);
 
   const ip = request.headers.get("CF-Connecting-IP") || "local";
   if (env.CONTACT_LIMIT) {

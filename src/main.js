@@ -4,7 +4,7 @@
 // page is once a frame — how far the hero has burst, how far into Games and Tools — and eases there
 // itself, so a fast flick never makes it jump.
 
-import { body, finePointer, gsap, lang, reveal, ScrollTrigger, still } from "./common.js";
+import { body, gsap, lang, reveal, ScrollTrigger, still } from "./common.js";
 import { createScene } from "./scene.js";
 
 const small = innerWidth < 760;   // the scene's point count, chosen once
@@ -199,8 +199,15 @@ if (scene) {
     body.dataset.scene = Object.entries(w).sort((x, y) => y[1] - x[1])[0][0];
   }
 
-  if (finePointer && !still) {
-    addEventListener("pointermove", (e) => scene.pointer((e.clientX / innerWidth) * 2 - 1, -(e.clientY / innerHeight) * 2 + 1), { passive: true });
+  // the mouse, a pen, and a finger: on a phone or a touch screen the points part under the finger
+  // while it moves, scrolling or not (touch events keep coming while the page scrolls; pointer
+  // events stop the moment a drag becomes a scroll)
+  if (!still) {
+    const at = (x, y) => scene.pointer((x / innerWidth) * 2 - 1, -(y / innerHeight) * 2 + 1);
+    addEventListener("pointermove", (e) => { if (e.pointerType !== "touch") at(e.clientX, e.clientY); }, { passive: true });
+    const touch = (e) => { const t = e.touches[0]; if (t) at(t.clientX, t.clientY); };
+    addEventListener("touchstart", touch, { passive: true });
+    addEventListener("touchmove", touch, { passive: true });
   }
   addEventListener("resize", () => { scene.size(); ScrollTrigger.refresh(); });
 

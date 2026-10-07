@@ -16,7 +16,6 @@ public/                     the site, as Cloudflare serves it
   assets/main.js, page.js   BUILT from src/ (npm run build) — do not edit by hand
   assets/screens/{en,fa}    the app's own screens, in the 3D devices
   assets/shots/{en,fa}      the store-style pictures, in the galleries
-  assets/fonts/             Vazirmatn (the app's font, OFL) for Persian
   assets/og.jpg, exon-icon.png, favicon.svg, robots.txt, sitemap.xml, google....html
 src/
   scene.js                  the WebGL scene (three.js): moon, burst, controller, gears

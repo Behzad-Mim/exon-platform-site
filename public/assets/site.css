@@ -1,8 +1,5 @@
 /* Moon Platform — the whole site's look. Tokens and rules: DESIGN.md. */
 
-@font-face { font-family: Vazirmatn; font-weight: 400; font-display: swap; src: url("/assets/fonts/Vazirmatn-Regular.ttf") format("truetype"); }
-@font-face { font-family: Vazirmatn; font-weight: 700; font-display: swap; src: url("/assets/fonts/Vazirmatn-Bold.ttf") format("truetype"); }
-@font-face { font-family: Vazirmatn; font-weight: 800; font-display: swap; src: url("/assets/fonts/Vazirmatn-ExtraBold.ttf") format("truetype"); }
 
 :root {
   color-scheme: dark;
@@ -32,8 +29,10 @@
   --line: rgba(169, 184, 234, .14);
   --line-strong: rgba(169, 184, 234, .3);
 
-  --sans: "Segoe UI Variable Display", "Segoe UI", -apple-system, BlinkMacSystemFont, "SF Pro Display", Roboto, "Noto Sans", Vazirmatn, Tahoma, sans-serif;
-  --fa: Vazirmatn, "Segoe UI", Tahoma, sans-serif;
+  --sans: "Segoe UI Variable Display", "Segoe UI", -apple-system, BlinkMacSystemFont, "SF Pro Display", Roboto, "Noto Sans", Tahoma, sans-serif;
+  /* Persian: Calibri, as the owner asked (7 Oct 2026). It is Windows' own and carries Persian; it may
+     not be served from a website (Microsoft's licence), so a phone without it uses its own Persian face. */
+  --fa: Calibri, "Segoe UI", Tahoma, "Noto Sans Arabic UI", "Noto Sans Arabic", "Noto Naskh Arabic", sans-serif;
   --mono: ui-monospace, "Cascadia Mono", "SF Mono", Consolas, "Liberation Mono", monospace;
 
   --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 20px; --s6: 24px; --s8: 32px;
@@ -349,6 +348,7 @@ body[data-lang="fa"] .gallery__nav .icon { transform: scaleX(-1); }
 .field { display: grid; gap: var(--s2); }
 .field span { font-size: 13px; color: var(--text-muted); }
 .field input, .field textarea { width: 100%; border-radius: 14px; border: 1px solid var(--line-strong); background: rgba(3, 4, 10, .55); color: #fff; font: inherit; padding: 13px 15px; resize: vertical; }
+.field [aria-invalid="true"] { border-color: #ff7a9e; box-shadow: 0 0 0 4px rgba(255, 122, 158, .15); }
 .field input:focus, .field textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 4px rgba(159, 182, 255, .15); }
 .field textarea { min-height: 140px; }
 .honey { position: absolute; inset-inline-start: -9999px; width: 1px; height: 1px; overflow: hidden; }

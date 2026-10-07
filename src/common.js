@@ -229,7 +229,10 @@ if (form) {
     const words = {
       sending: { en: "Sending…", fa: "در حال فرستادن…" },
       sent: { en: "Sent. We will write back to the address you gave.", fa: "فرستاده شد. به نشانی‌ای که دادید جواب می‌دهیم." },
-      invalid: { en: "Please give a name, a valid email and a message.", fa: "لطفاً نام، ایمیل درست و پیام را بنویسید." },
+      name: { en: "Please write your name.", fa: "لطفاً نام خود را بنویسید." },
+      email: { en: "That email address does not look right.", fa: "این نشانی ایمیل درست به نظر نمی‌رسد." },
+      message: { en: "Please write a message.", fa: "لطفاً پیامی بنویسید." },
+      invalid: { en: "Please check the name, the email and the message.", fa: "لطفاً نام، ایمیل و پیام را بررسی کنید." },
       busy: { en: "Too many messages from here just now — try again in a minute.", fa: "از اینجا پیام زیادی آمده؛ یک دقیقه بعد دوباره بفرستید." },
       failed: { en: "It did not go through. Please write to contact@moonplatform.app.", fa: "فرستاده نشد. لطفاً به contact@moonplatform.app ایمیل بزنید." },
     };
@@ -240,10 +243,19 @@ if (form) {
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const data = Object.fromEntries(new FormData(form));
-    if (!data.name?.trim() || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(data.email || "") || (data.message || "").trim().length < 5) {
-      say("invalid");
+    // a message of any length: «تست» is three letters, and it is a message
+    const wrong = !data.name?.trim() ? "name"
+      : !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test((data.email || "").trim()) ? "email"
+      : !(data.message || "").trim() ? "message" : null;
+    for (const field of form.querySelectorAll("input, textarea")) field.removeAttribute("aria-invalid");
+    if (wrong) {
+      say(wrong);
+      const field = form.elements[wrong];
+      field?.setAttribute("aria-invalid", "true");
+      field?.focus();
       return;
     }
+    data.email = data.email.trim();
     const button = form.querySelector("button[type=submit]");
     button.disabled = true;
     say("sending");

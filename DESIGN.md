@@ -57,10 +57,12 @@ same way. Accent stays interactive-only.
 | H1 | `clamp(34px, 5.4vw, 76px)` / 1.02 / -0.035em | 800 | section titles |
 | H2 | `clamp(24px, 2.6vw, 34px)` | 700 | card titles |
 | Lead | `clamp(17px, 1.5vw, 20px)` / 1.65 | 400 | intros |
-| HUD | 12px mono, 0.2em, uppercase (Persian: 14px Vazirmatn, no tracking) | 500 | overlines, chips |
+| HUD | 12px mono, 0.2em, uppercase (Persian: 14px Calibri, no tracking) | 500 | overlines, chips |
 
-- Latin: the system's display face (`Segoe UI Variable Display`, SF Pro…). Persian: **Vazirmatn**,
-  the app's own font (OFL), self-hosted in `assets/fonts/`, loaded only by Persian text.
+- Latin: the system's display face (`Segoe UI Variable Display`, SF Pro…). Persian: **Calibri**
+  (the owner's choice, 7 Oct 2026) — Windows' own font, which carries Persian. It cannot be served
+  from the site (Microsoft's licence), so phones without it fall back to their own Persian face
+  (Noto Sans Arabic UI on Android). No web font is downloaded at all.
 - Mono: `ui-monospace, Cascadia Mono…` — HUD, terminal, glitch titles.
 - Persian text is never letter-spaced; line heights rise for it.
 
