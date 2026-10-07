@@ -6,7 +6,7 @@
 // the page is (setState) and it eases towards that.
 
 import {
-  AdditiveBlending, BufferAttribute, BufferGeometry, BoxGeometry, Color, CylinderGeometry, ExtrudeGeometry, Mesh,
+  AdditiveBlending, NormalBlending, BufferAttribute, BufferGeometry, BoxGeometry, Color, CylinderGeometry, ExtrudeGeometry, Mesh,
   Path, PerspectiveCamera, Points, Scene, Shape, ShaderMaterial, Vector2, Vector3, WebGLRenderer,
 } from "three";
 import { MeshSurfaceSampler } from "three/examples/jsm/math/MeshSurfaceSampler.js";
@@ -34,6 +34,7 @@ const VERTEX = /* glsl */ `
 
   varying float vBright;
   varying float vTint;
+  varying float vSize;
 
   mat3 rotX(float a) { float c = cos(a), s = sin(a); return mat3(1., 0., 0., 0., c, s, 0., -s, c); }
   mat3 rotY(float a) { float c = cos(a), s = sin(a); return mat3(c, 0., -s, 0., 1., 0., s, 0., c); }
@@ -87,22 +88,33 @@ const VERTEX = /* glsl */ `
 
     float far = -mv.z;
     gl_PointSize = uSize * (0.55 + aRand.x * 0.9) * (1.0 + shaped * 0.35) * uPixelRatio / max(far, 0.35) * (1.0 + push);
+    vSize = gl_PointSize / uPixelRatio;
   }
 `;
 
 const FRAGMENT = /* glsl */ `
+  uniform float uInkStrength;
   uniform vec3 uColorA;
   uniform vec3 uColorB;
   uniform float uOpacity;
+  uniform float uInk;
   varying float vBright;
   varying float vTint;
+  varying float vSize;
 
   void main() {
     float d = length(gl_PointCoord - 0.5);
     float a = smoothstep(0.5, 0.0, d);
     a *= a;
     vec3 col = mix(uColorA, uColorB, vTint);
-    gl_FragColor = vec4(col * vBright, a * clamp(vBright, 0.0, 1.4) * uOpacity);
+    if (uInk > 0.5) {
+      // by day the points are ink, not light: the colour itself, as solid as the point is bright,
+      // and a point close to the camera (a big one) faint, as a speck out of focus would be
+      float soft = clamp(16.0 / vSize, 0.12, 1.0);
+      gl_FragColor = vec4(col, clamp(a * vBright * uInkStrength, 0.0, 1.0) * uOpacity * soft);
+    } else {
+      gl_FragColor = vec4(col * vBright, a * clamp(vBright, 0.0, 1.4) * uOpacity);
+    }
   }
 `;
 
@@ -241,6 +253,7 @@ export function createScene(canvas, { small, still }) {
     uCtrlOffset: { value: new Vector3() }, uGearOffset: { value: new Vector3() },
     uDrift: { value: still ? 0 : 1 },
     uColorA: { value: new Color("#f4f6ff") }, uColorB: { value: new Color("#a9b8ea") }, uOpacity: { value: 1 },
+    uInk: { value: 0 }, uInkStrength: { value: 1.6 },
   };
 
   const material = new ShaderMaterial({
@@ -260,9 +273,13 @@ export function createScene(canvas, { small, still }) {
     ctrlX: 0, gearX: 0 };
   const mouse = { x: 9, y: 9, strength: 0, last: 0 };
 
+  let sized = "";
   function size() {
     const w = canvas.clientWidth, h = canvas.clientHeight;
     const ratio = Math.min(devicePixelRatio || 1, small ? 1.5 : 1.75) * quality;
+    // the same size again (a phone's address bar moving) must not reallocate the drawing buffer
+    if (sized === `${w}x${h}@${ratio}`) return;
+    sized = `${w}x${h}@${ratio}`;
     renderer.setPixelRatio(ratio);
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
@@ -323,6 +340,15 @@ export function createScene(canvas, { small, still }) {
     frame,
     target,
     pointer(x, y) { mouse.x = x; mouse.y = y; mouse.last = performance.now(); },
+    /** Light page: the points drawn as ink over it, not added as light (which would vanish on white). */
+    ink(on) {
+      uniforms.uInk.value = on ? 1 : 0;
+      material.blending = on ? NormalBlending : AdditiveBlending;
+      material.needsUpdate = true;
+      // the new colours at once: easing from light to ink would draw pale points on a pale page
+      uniforms.uColorA.value.copy(target.colorA);
+      uniforms.uColorB.value.copy(target.colorB);
+    },
     dispose() { renderer.dispose(); geometry.dispose(); material.dispose(); },
   };
 }

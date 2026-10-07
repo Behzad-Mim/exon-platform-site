@@ -10,6 +10,7 @@
 <link rel="canonical" href="https://moonplatform.app/exon/privacy">
 <link rel="icon" href="/assets/exon-icon.png" type="image/png">
 <meta name="theme-color" content="#04050b">
+<script>try{var t=new URLSearchParams(location.search).get("theme")||localStorage.getItem("moon.theme");if(t==="light")document.documentElement.dataset.theme="light"}catch(e){}</script>
 <link rel="stylesheet" href="/assets/site.css">
 <script type="module" src="/assets/page.js"></script>
 </head>
@@ -31,7 +32,9 @@
   <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
   <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
   <symbol id="i-send" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></symbol>
-  <symbol id="mark" viewBox="0 0 32 32"><defs><linearGradient id="mg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".55" stop-color="#dfe5fa"/><stop offset="1" stop-color="#7d92d9"/></linearGradient><mask id="mm"><rect width="32" height="32" fill="#fff"/><circle cx="21.5" cy="10.5" r="10.5" fill="#000"/></mask></defs><circle cx="15" cy="17" r="12" fill="url(#mg)" mask="url(#mm)"/><circle cx="25.5" cy="6.5" r="1.7" fill="#ffbf73"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2m-7.07-17.07 1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></symbol>
+  <symbol id="mark" viewBox="0 0 32 32"><defs><linearGradient id="mg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:var(--mark-a,#ffffff)"/><stop offset=".55" style="stop-color:var(--mark-b,#dfe5fa)"/><stop offset="1" style="stop-color:var(--mark-c,#7d92d9)"/></linearGradient><mask id="mm"><rect width="32" height="32" fill="#fff"/><circle cx="21.5" cy="10.5" r="10.5" fill="#000"/></mask></defs><circle cx="15" cy="17" r="12" fill="url(#mg)" mask="url(#mm)"/><circle cx="25.5" cy="6.5" r="1.7" fill="#ffbf73"/></symbol>
 </svg>
 
 <div class="sky" aria-hidden="true"><div class="sky__hero" style="opacity:.6"></div><div class="sky__apps" style="opacity:1"></div></div>
@@ -49,6 +52,7 @@
       <a class="tab" href="/#updates"><span data-l="en" lang="en">Updates</span><span data-l="fa" lang="fa">به‌روزرسانی‌ها</span></a>
       <button class="tab" type="button" data-open-search><svg class="icon" aria-hidden="true"><use href="#i-search"/></svg><span data-l="en" lang="en">Search</span><span data-l="fa" lang="fa">جستجو</span><kbd>/</kbd></button>
     </div>
+    <button class="tab tab--theme" type="button" data-toggle-theme aria-pressed="false" aria-label="Light theme · تم روشن"><svg class="icon when-dark" aria-hidden="true"><use href="#i-sun"/></svg><svg class="icon when-light" aria-hidden="true"><use href="#i-moon"/></svg></button>
     <button class="tab tab--lang" type="button" data-toggle-lang aria-label="English / فارسی">فا</button>
     <a class="capsule__cta" href="/exon"><span data-l="en" lang="en">Get Started</span><span data-l="fa" lang="fa">شروع کنید</span></a>
     <button class="capsule__menu" type="button" data-menu-button aria-expanded="false" aria-controls="menu" aria-label="Menu"><svg class="icon" aria-hidden="true"><use href="#i-menu"/></svg></button>
@@ -61,6 +65,7 @@
   <a href="/#updates"><span data-l="en" lang="en">Updates</span><span data-l="fa" lang="fa">به‌روزرسانی‌ها</span></a>
   <button type="button" data-open-search><span data-l="en" lang="en">Search</span><span data-l="fa" lang="fa">جستجو</span><svg class="icon" aria-hidden="true"><use href="#i-search"/></svg></button>
   <button type="button" data-toggle-lang aria-label="English / فارسی">فا</button>
+  <button type="button" data-toggle-theme aria-pressed="false"><span data-l="en" lang="en"><span class="when-dark">Light theme</span><span class="when-light">Dark theme</span></span><span data-l="fa" lang="fa"><span class="when-dark">تم روشن</span><span class="when-light">تم تاریک</span></span><svg class="icon when-dark" aria-hidden="true"><use href="#i-sun"/></svg><svg class="icon when-light" aria-hidden="true"><use href="#i-moon"/></svg></button>
 </div>
 
 

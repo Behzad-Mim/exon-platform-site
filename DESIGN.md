@@ -49,6 +49,15 @@ The scene's particle colours follow the section (main.js `PALETTE`), crossfaded 
 section is on screen; the sky behind has one gradient layer per section (`.sky__*`), crossfaded the
 same way. Accent stays interactive-only.
 
+**Light theme** (7 Oct 2026): the sun/moon button in the capsule (a row in the phone menu) sets
+`html[data-theme="light"]`, kept in `localStorage` `moon.theme`; each page's `<head>` applies it
+before the first paint (`?theme=light` works for tests). **Dark stays the default** — it is the
+moon's. Light redefines the tokens (`--bg #eef1fa`, text `#0c1233 / #2a3157 / #59628a`, accent
+`#4257d6`, white glass) and the few rules drawn in the dark's own colours (end of `site.css`). The
+scene draws its points as ink (`scene.ink()`: normal blending, `PALETTE.light`, near points faint)
+because added light vanishes on white; the devices show the app's light screens
+(`*-light.webp`); the monitor, phone and terminal stay dark, as real ones are.
+
 ## 3. Typography
 
 | Level | Size | Weight | Usage |
@@ -79,10 +88,17 @@ Base 4px (`--s1`…`--s40`). Content width 1200px, gutter `clamp(16px, 4vw, 40px
   mark · Get Started · menu button → `.menu` glass sheet. Current section underlined
   (`aria-current`).
 - **Search** (`.search`): `/` or Ctrl+K or the tab; a fixed index in `common.js`, both languages;
-  arrows + Enter; Escape closes.
+  arrows + Enter (the chosen one kept in sight); Escape closes. The list carries
+  `data-lenis-prevent`: Lenis, stopped while search is open, would otherwise eat every wheel and
+  touchpad scroll, the list's too.
 - **Glass** (`.glass`): tint gradient + blur(20px) saturate + 1px rim + lit-side rim gradient
   (mirrored in Persian) + inner sheen + outer glow. Cards, tiles, form, holograms are glass so the
-  scene shows through them.
+  scene shows through them. **On a touch-only device (`hover: none`) there is no blur and no grain:**
+  a denser tint instead (tokens `--glass-blur`, `--capsule-blur`, `--soft-blur` set to `none`).
+  backdrop-filter re-blurs what is behind it every frame, and behind it the scene moves every frame;
+  on a phone's GPU that doubled the frame time in Games and Tools, and a finger made it worse. The
+  full-screen grain cost frames under a scrolling finger too. Measured 7 Oct 2026 (Tools, finger
+  scrolling, software GPU: 68 → 25 ms a frame).
 - **Buttons**: `--primary` (moonlight), `--glass`, `--gloss` (violet→blue→cyan with a sheen that
   crosses on hover — the download buttons). Height 52.
 - **Stage3d**: CSS 3D monitor + phone holding the app's real screens (`assets/screens/{en,fa}`),
@@ -112,7 +128,11 @@ Only transform, opacity and filter animate. `prefers-reduced-motion`: no Lenis, 
 glitch, the scene frozen in place (no drift or spin), still readable at every scroll position.
 No WebGL: `html.no-webgl`, the canvas hidden, the sky gradients carry the page.
 Performance: points 22k desktop / 9k phone, DPR ≤ 1.75 / 1.5; if frames run long the scene drops
-to 60% of the points and resolution; the loop rests while the tab is hidden.
+to 60% of the points and resolution; the loop rests while the tab is hidden. `place()` reads the
+sections' positions from a table measured on ScrollTrigger's refresh, never `getBoundingClientRect`
+in the frame, and writes a style only when it changes. A resize resizes the canvas only (and only
+when its size really changed); ScrollTrigger refreshes itself, ignoring a phone's address bar —
+our own refresh on every resize was a stall in the middle of a finger's scroll.
 
 ## 7. Depth & Surface
 
@@ -130,5 +150,5 @@ them; rims catch the light on the side the moon is (upper right; upper left in P
 |---|---|---|
 | main.js ~700 KB raw (~180 KB brotli) | three.js | import from three's own modules if the size starts to matter |
 | Tool and game names redacted | unannounced | the owner names them; each gets a page like /exon |
-| Exon pictures from a demo book in the app's dark theme | no real data may appear | — |
+| Exon pictures from a demo book (devices: dark or light with the page; store pictures: dark) | no real data may appear | — |
 | Date-box placeholders in the app read «1405/01/01» even in Gregorian | app-side, hard-coded watermark | fix in the app (owner's list) |

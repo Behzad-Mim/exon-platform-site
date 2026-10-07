@@ -45,16 +45,26 @@
   --ease-std: cubic-bezier(.2, .7, .2, 1);
   --ease-emph: cubic-bezier(.16, 1, .3, 1);
 
+  --bg: var(--ink-950);
   --glass-tint: linear-gradient(160deg, rgba(36, 44, 92, .42), rgba(8, 10, 24, .62));
   --glass-blur: blur(20px) saturate(150%);
   --glass-sheen: inset 0 1px 0 rgba(255, 255, 255, .09);
   --glass-glow: 0 30px 80px -30px rgba(93, 115, 196, .45);
+  --glass-edge: rgba(223, 229, 250, .45), rgba(169, 184, 234, .08) 38%, transparent 62%;
+  --capsule-bg: rgba(14, 18, 40, .38);
+  --capsule-bg-floating: rgba(10, 13, 30, .62);
+  --capsule-blur: blur(22px) saturate(160%);
+  --soft-blur: blur(12px);
+  --game-bg: linear-gradient(160deg, rgba(40, 8, 40, .55), rgba(4, 6, 14, .7));
+  --tile-bg: linear-gradient(160deg, rgba(10, 40, 70, .45), rgba(4, 8, 20, .66));
+  /* the moon in the mark: lit from the top left */
+  --mark-a: #ffffff; --mark-b: #dfe5fa; --mark-c: #7d92d9;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
 /* clip, not hidden: nothing that slides in from the side (a card, a turned device) may widen the page
    a phone lays out — and clip makes no scroll container, so pinning still works */
-html { background: var(--ink-950); -webkit-text-size-adjust: 100%; overflow-x: clip; }
+html { background: var(--bg); -webkit-text-size-adjust: 100%; overflow-x: clip; }
 html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
 body {
@@ -85,7 +95,7 @@ body[data-lang="fa"] .icon--dir { transform: scaleX(-1); }
 
 /* ------------------------------------------------------------------ the sky: one layer per part of the page */
 
-.sky { position: fixed; inset: 0; z-index: -3; pointer-events: none; background: var(--ink-950); }
+.sky { position: fixed; inset: 0; z-index: -3; pointer-events: none; background: var(--bg); }
 .sky > div { position: absolute; inset: 0; opacity: 0; transition: opacity 300ms linear; will-change: opacity; }
 .sky__hero { opacity: 1; background: radial-gradient(ellipse 60% 55% at 50% 45%, rgba(93, 115, 196, .26), transparent 70%),
   radial-gradient(ellipse 90% 60% at 50% 120%, rgba(14, 18, 48, .9), transparent 70%); }
@@ -112,21 +122,21 @@ canvas.scene { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 
 }
 .glass::before {
   content: ""; position: absolute; inset: -1px; border-radius: inherit; padding: 1px; pointer-events: none;
-  background: linear-gradient(215deg, rgba(223, 229, 250, .45), rgba(169, 184, 234, .08) 38%, transparent 62%);
+  background: linear-gradient(215deg, var(--glass-edge));
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude;
 }
-body[data-lang="fa"] .glass::before { background: linear-gradient(145deg, rgba(223, 229, 250, .45), rgba(169, 184, 234, .08) 38%, transparent 62%); }
+body[data-lang="fa"] .glass::before { background: linear-gradient(145deg, var(--glass-edge)); }
 
 /* ------------------------------------------------------------------ the capsule */
 
 .top { position: fixed; top: var(--s4); inset-inline: 0; z-index: 50; display: flex; justify-content: center; padding: 0 var(--gutter); pointer-events: none; }
 .capsule {
   pointer-events: auto; display: flex; align-items: center; gap: var(--s1); padding: 6px; border-radius: 999px;
-  background: rgba(14, 18, 40, .38); -webkit-backdrop-filter: blur(22px) saturate(160%); backdrop-filter: blur(22px) saturate(160%);
+  background: var(--capsule-bg); -webkit-backdrop-filter: var(--capsule-blur); backdrop-filter: var(--capsule-blur);
   border: 1px solid rgba(223, 229, 250, .16); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .1), 0 20px 50px -20px rgba(0, 0, 0, .7);
   transition: background 300ms var(--ease-std), box-shadow 300ms var(--ease-std);
 }
-.capsule.is-floating { background: rgba(10, 13, 30, .62); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .1), 0 24px 60px -18px rgba(0, 0, 0, .85); }
+.capsule.is-floating { background: var(--capsule-bg-floating); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .1), 0 24px 60px -18px rgba(0, 0, 0, .85); }
 .capsule__mark { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; }
 .capsule__mark svg { width: 26px; height: 26px; filter: drop-shadow(0 0 10px rgba(159, 182, 255, .6)); }
 .capsule__tabs { display: flex; gap: var(--s1); }
@@ -139,6 +149,9 @@ body[data-lang="fa"] .glass::before { background: linear-gradient(145deg, rgba(2
 .tab[aria-current="true"] { background: rgba(223, 229, 250, .18); color: #fff; }
 .tab kbd { font: 500 11px/1 var(--mono); padding: 3px 6px; border-radius: 6px; background: rgba(223, 229, 250, .1); color: var(--lunar-300); }
 .tab--lang { font-family: var(--fa); min-width: 46px; justify-content: center; padding: 0 var(--s3); }
+.tab--theme { width: 40px; padding: 0; justify-content: center; }
+/* the sun shows on the dark page (it brings the light one), the moon on the light page */
+[data-theme="light"] .when-dark, :root:not([data-theme="light"]) .when-light { display: none !important; }
 .capsule__cta {
   display: inline-flex; align-items: center; height: 40px; padding: 0 var(--s5); border-radius: 999px; margin-inline-start: var(--s1);
   background: #0b0d18; color: #fff; font-size: 14px; font-weight: 600; white-space: nowrap;
@@ -151,7 +164,7 @@ body[data-lang="fa"] .glass::before { background: linear-gradient(145deg, rgba(2
 .menu a, .menu button { display: flex; align-items: center; justify-content: space-between; height: 48px; padding: 0 var(--s4); border-radius: 14px;
   background: rgba(223, 229, 250, .05); color: var(--moonlight); border: 0; font-size: 16px; cursor: pointer; text-align: start; }
 @media (max-width: 860px) {
-  .capsule__tabs, .capsule .tab--lang { display: none; }
+  .capsule__tabs, .capsule .tab--lang, .capsule .tab--theme { display: none; }
   .capsule__menu { display: grid; }
   .capsule { width: 100%; justify-content: space-between; }
 }
@@ -184,7 +197,7 @@ body[data-lang="fa"] .btn { font-family: var(--fa); font-weight: 700; }
 .btn:active { transform: translateY(0); }
 .btn--primary { background: linear-gradient(180deg, #fff, var(--lunar-100)); color: var(--ink-950); box-shadow: 0 0 0 1px rgba(255, 255, 255, .6) inset, 0 12px 36px -10px rgba(159, 182, 255, .8); }
 .btn--primary:hover { color: var(--ink-950); }
-.btn--glass { color: var(--text-primary); background: rgba(15, 20, 48, .5); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); box-shadow: inset 0 0 0 1px var(--line-strong); }
+.btn--glass { color: var(--text-primary); background: rgba(15, 20, 48, .5); -webkit-backdrop-filter: var(--soft-blur); backdrop-filter: var(--soft-blur); box-shadow: inset 0 0 0 1px var(--line-strong); }
 .btn--glass:hover { color: var(--text-primary); background: rgba(42, 53, 102, .55); }
 /* the glossy one: a sheen that crosses it on hover */
 .btn--gloss { color: #fff; background: linear-gradient(135deg, #6d5cf6, #4f7cff 60%, #3fd0ff);
@@ -242,7 +255,7 @@ body[data-lang="fa"] .chip { font: 700 13px/1 var(--fa); letter-spacing: 0; }
   position: absolute; display: inline-flex; align-items: center; gap: var(--s2); padding: var(--s3) var(--s4); border-radius: 16px; white-space: nowrap;
   color: #e9f7ff; font-weight: 600; font-size: 14px; background: linear-gradient(135deg, rgba(63, 208, 255, .16), rgba(139, 124, 248, .16));
   border: 1px solid rgba(120, 220, 255, .45); box-shadow: 0 0 30px -6px rgba(63, 208, 255, .65), inset 0 0 18px rgba(63, 208, 255, .15);
-  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); text-shadow: 0 0 12px rgba(120, 220, 255, .8); overflow: hidden;
+  -webkit-backdrop-filter: var(--soft-blur); backdrop-filter: var(--soft-blur); text-shadow: 0 0 12px rgba(120, 220, 255, .8); overflow: hidden;
 }
 .holo::after { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(0deg, rgba(255, 255, 255, .07) 0 1px, transparent 1px 4px); pointer-events: none; }
 .holo .icon { color: var(--cyber); }
@@ -288,7 +301,7 @@ body[data-lang="fa"] .gallery__nav .icon { transform: scaleX(-1); }
 .games-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--s6); }
 @media (max-width: 760px) { .games-grid { grid-template-columns: 1fr; } }
 .game-card { border-radius: 26px; padding: var(--s8); min-height: 300px; display: grid; align-content: space-between; gap: var(--s6); overflow: hidden;
-  background: linear-gradient(160deg, rgba(40, 8, 40, .55), rgba(4, 6, 14, .7)); border-color: rgba(255, 63, 164, .3); }
+  background: var(--game-bg); border-color: rgba(255, 63, 164, .3); }
 .game-card::after { content: ""; position: absolute; inset: 0; pointer-events: none; border-radius: inherit;
   background: radial-gradient(circle at 85% 0%, rgba(255, 63, 164, .25), transparent 50%), radial-gradient(circle at 0% 100%, rgba(57, 255, 154, .14), transparent 50%); }
 .game-card:nth-child(2) { border-color: rgba(57, 255, 154, .28); }
@@ -307,7 +320,7 @@ body[data-lang="fa"] .gallery__nav .icon { transform: scaleX(-1); }
 
 .bento { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: minmax(190px, auto); gap: var(--s4); perspective: 1200px; }
 .tile { border-radius: 24px; padding: var(--s6); display: grid; align-content: space-between; gap: var(--s4); overflow: hidden;
-  background: linear-gradient(160deg, rgba(10, 40, 70, .45), rgba(4, 8, 20, .66)); border-color: rgba(63, 208, 255, .22);
+  background: var(--tile-bg); border-color: rgba(63, 208, 255, .22);
   transition: border-color 260ms var(--ease-std), box-shadow 260ms var(--ease-std); }
 .tile:hover { border-color: rgba(63, 208, 255, .6); box-shadow: var(--glass-sheen), 0 0 40px -10px rgba(63, 208, 255, .55); }
 .tile--wide { grid-column: span 2; }
@@ -355,7 +368,7 @@ body[data-lang="fa"] .gallery__nav .icon { transform: scaleX(-1); }
 .form__foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s4); }
 .form__status { font-size: 14px; color: var(--text-muted); margin: 0; }
 .form__status[data-state="sent"] { color: var(--neon-green); }
-.form__status[data-state="failed"], .form__status[data-state="invalid"], .form__status[data-state="busy"] { color: #ff9db8; }
+.form__status:is([data-state="failed"], [data-state="invalid"], [data-state="busy"], [data-state="name"], [data-state="email"], [data-state="message"]) { color: #ff9db8; }
 .form .note { font-size: 13px; color: var(--text-muted); margin: 0; }
 
 .foot { border-top: 1px solid var(--line); background: rgba(3, 4, 10, .7); }
@@ -373,7 +386,7 @@ body[data-lang="fa"] .gallery__nav .icon { transform: scaleX(-1); }
 .search__box { width: min(620px, 100%); border-radius: 24px; padding: var(--s3); }
 .search__box input { width: 100%; height: 56px; border: 0; background: transparent; color: #fff; font: 500 18px var(--sans); padding: 0 var(--s4); outline: none; }
 body[data-lang="fa"] .search__box input { font-family: var(--fa); }
-.search ul { list-style: none; margin: 0; padding: var(--s2) 0 0; border-top: 1px solid var(--line); display: grid; gap: 2px; max-height: 50vh; overflow: auto; }
+.search ul { list-style: none; margin: 0; padding: var(--s2) 0 0; border-top: 1px solid var(--line); display: grid; gap: 2px; max-height: 50vh; overflow: auto; overscroll-behavior: contain; }
 .search__item { display: grid; gap: 2px; padding: var(--s3) var(--s4); border-radius: 14px; color: var(--text-body); }
 .search__item b { color: #fff; font-weight: 600; }
 .search__item span { font-size: 13px; color: var(--text-muted); }
@@ -438,6 +451,145 @@ body[data-lang="fa"] .crumb .icon { transform: none; }
 .stage__tag--c { bottom: 2%; inset-inline-start: 8%; }
 @media (max-width: 900px) { .page-hero__grid { grid-template-columns: 1fr; } .page-hero__grid .stage { display: none; } }
 @media (prefers-reduced-motion: reduce) { .stage__ring--2 { animation: none; } }
+
+/* ------------------------------------------------------------------ the light theme
+   The sun/moon button in the capsule (the menu, on a phone); the choice is remembered in this
+   browser, and dark stays the default. Tokens first, then what was drawn in the dark's own colours.
+   The devices and the terminal stay dark, as real ones are. */
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #eef1fa;
+  --text-primary: #0c1233;
+  --text-body: #2a3157;
+  --text-muted: #59628a;
+  --line: rgba(36, 48, 110, .12);
+  --line-strong: rgba(36, 48, 110, .24);
+  --accent: #4257d6;
+  --accent-hover: #2c3fb5;
+  --glass-tint: linear-gradient(160deg, rgba(255, 255, 255, .66), rgba(232, 236, 252, .5));
+  --glass-sheen: inset 0 1px 0 rgba(255, 255, 255, .95);
+  --glass-glow: 0 30px 80px -34px rgba(60, 80, 170, .35);
+  --glass-edge: rgba(255, 255, 255, .95), rgba(120, 140, 210, .2) 38%, transparent 62%;
+  --capsule-bg: rgba(255, 255, 255, .55);
+  --capsule-bg-floating: rgba(255, 255, 255, .8);
+  --game-bg: linear-gradient(160deg, rgba(255, 238, 249, .74), rgba(236, 255, 246, .62));
+  --tile-bg: linear-gradient(160deg, rgba(230, 247, 255, .76), rgba(244, 247, 255, .62));
+  --mark-a: #7d92d9; --mark-b: #2f3d86; --mark-c: #0c1233;
+}
+
+/* the sky, by day */
+[data-theme="light"] .sky__hero { background: radial-gradient(ellipse 60% 55% at 50% 45%, rgba(110, 130, 220, .2), transparent 70%),
+  radial-gradient(ellipse 90% 60% at 50% 120%, rgba(196, 206, 244, .9), transparent 70%); }
+[data-theme="light"] .sky__apps { background: radial-gradient(ellipse 70% 60% at 25% 30%, rgba(124, 92, 246, .2), transparent 70%),
+  radial-gradient(ellipse 60% 55% at 85% 75%, rgba(52, 102, 255, .16), transparent 70%); }
+[data-theme="light"] .sky__games { background: radial-gradient(ellipse 55% 50% at 80% 25%, rgba(255, 46, 160, .14), transparent 70%),
+  radial-gradient(ellipse 55% 50% at 15% 80%, rgba(20, 210, 130, .12), transparent 70%), rgba(255, 255, 255, .35); }
+[data-theme="light"] .sky__tools { background: radial-gradient(ellipse 70% 60% at 50% 40%, rgba(40, 170, 255, .14), transparent 70%),
+  linear-gradient(rgba(8, 134, 200, .07) 1px, transparent 1px) 0 0 / 56px 56px,
+  linear-gradient(90deg, rgba(8, 134, 200, .07) 1px, transparent 1px) 0 0 / 56px 56px; }
+[data-theme="light"] .grain { filter: invert(1); opacity: .035; }
+[data-theme="light"] .skip { background: var(--text-primary); color: #fff; }
+
+/* the capsule and the menu */
+[data-theme="light"] .capsule { border-color: rgba(36, 48, 110, .12); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .9), 0 18px 44px -22px rgba(30, 40, 90, .35); }
+[data-theme="light"] .capsule.is-floating { box-shadow: inset 0 1px 0 rgba(255, 255, 255, .9), 0 22px 54px -20px rgba(30, 40, 90, .45); }
+[data-theme="light"] .capsule__mark svg { filter: drop-shadow(0 0 8px rgba(66, 87, 214, .3)); }
+[data-theme="light"] .tab { background: rgba(36, 48, 110, .05); color: var(--text-body); box-shadow: inset 0 0 0 1px rgba(36, 48, 110, .07); }
+[data-theme="light"] .tab:hover { background: rgba(36, 48, 110, .1); color: var(--text-primary); }
+[data-theme="light"] .tab[aria-current="true"] { background: rgba(36, 48, 110, .14); color: var(--text-primary); }
+[data-theme="light"] .tab kbd { background: rgba(36, 48, 110, .08); color: var(--text-muted); }
+[data-theme="light"] .capsule__menu { background: rgba(36, 48, 110, .07); color: var(--text-primary); }
+[data-theme="light"] :is(.menu a, .menu button) { background: rgba(36, 48, 110, .05); color: var(--text-primary); }
+
+/* type and buttons */
+[data-theme="light"] .display { background-image: linear-gradient(180deg, #0c1233 0%, #1f2a66 55%, #4a5db8 100%); }
+/* no glow behind it: a text-shadow paints over a gradient clipped to the text, and white would wash it out */
+[data-theme="light"] .hero__words .display { text-shadow: none; }
+[data-theme="light"] .hero__words .lead { color: var(--text-body); text-shadow: 0 1px 18px rgba(238, 241, 250, .95); }
+[data-theme="light"] .hero__flash { background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, .95), rgba(139, 124, 248, .22) 30%, transparent 70%); mix-blend-mode: normal; }
+[data-theme="light"] .scrollcue i { background: linear-gradient(var(--lunar-500), transparent); }
+[data-theme="light"] .btn--primary { background: linear-gradient(180deg, #222b62, #0c1233); color: #fff;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .18), 0 12px 30px -12px rgba(30, 40, 110, .6); }
+[data-theme="light"] .btn--primary:hover { color: #fff; }
+[data-theme="light"] .btn--glass { background: rgba(255, 255, 255, .62); }
+[data-theme="light"] .btn--glass:hover { background: rgba(255, 255, 255, .92); }
+[data-theme="light"] .chip { background: rgba(255, 255, 255, .62); }
+[data-theme="light"] .chip i { background: var(--lunar-700); box-shadow: 0 0 8px rgba(66, 87, 214, .45); }
+[data-theme="light"] .chip--soon i { background: #f08c1a; box-shadow: 0 0 10px rgba(240, 140, 26, .6); }
+
+/* apps */
+[data-theme="light"] .holo { color: #073a56; background: linear-gradient(135deg, rgba(220, 246, 255, .74), rgba(234, 230, 255, .74));
+  border-color: rgba(8, 134, 200, .4); box-shadow: 0 0 26px -8px rgba(8, 134, 200, .45), inset 0 0 14px rgba(63, 208, 255, .12); text-shadow: none; }
+[data-theme="light"] .holo::after { background: repeating-linear-gradient(0deg, rgba(8, 60, 100, .04) 0 1px, transparent 1px 4px); }
+[data-theme="light"] .holo .icon { color: #0886c8; }
+[data-theme="light"] .monitor3d__frame { box-shadow: 0 0 0 1px rgba(20, 30, 80, .12), 0 60px 110px -40px rgba(80, 60, 220, .45), inset 0 1px 0 rgba(255, 255, 255, .1); }
+[data-theme="light"] .phone3d__frame { box-shadow: 0 0 0 1px rgba(20, 30, 80, .14), 0 50px 90px -30px rgba(40, 90, 255, .45), inset 0 0 0 2px #23263a; }
+[data-theme="light"] :is(.app__icon, .exon-head img, .stage__icon) { box-shadow: 0 0 0 1px rgba(20, 30, 80, .08), 0 24px 60px -20px rgba(124, 108, 246, .6); }
+[data-theme="light"] .gallery__nav button { background: rgba(255, 255, 255, .7); color: var(--text-primary); }
+[data-theme="light"] .gallery__nav button:hover { background: #fff; }
+[data-theme="light"] .strip { scrollbar-color: var(--lunar-300) transparent; }
+[data-theme="light"] .strip img { box-shadow: 0 30px 60px -32px rgba(20, 30, 80, .4), 0 0 0 1px rgba(20, 30, 80, .08); }
+
+/* games and tools */
+[data-theme="light"] .game-card { border-color: rgba(224, 18, 131, .26); }
+[data-theme="light"] .game-card:nth-child(2) { border-color: rgba(10, 163, 90, .3); }
+[data-theme="light"] .game-card::after { background: radial-gradient(circle at 85% 0%, rgba(255, 63, 164, .16), transparent 50%), radial-gradient(circle at 0% 100%, rgba(57, 255, 154, .16), transparent 50%); }
+[data-theme="light"] .glitch { color: var(--text-primary); }
+/* screen would add pink and green to white and leave white; multiply leaves the colour */
+[data-theme="light"] .glitch::before, [data-theme="light"] .glitch::after { mix-blend-mode: multiply; opacity: .7; }
+[data-theme="light"] .tile { border-color: rgba(8, 134, 200, .22); }
+[data-theme="light"] .tile:hover { border-color: rgba(8, 134, 200, .5); box-shadow: var(--glass-sheen), 0 0 40px -12px rgba(8, 134, 200, .4); }
+[data-theme="light"] :is(.tile h3, .update__version, .search__item b, .foot__brand) { color: var(--text-primary); }
+[data-theme="light"] .tile .redacted { color: #0878b0; }
+[data-theme="light"] .tile svg.gear { color: #0886c8; filter: drop-shadow(0 0 10px rgba(8, 134, 200, .3)); }
+
+/* contact, the footer, search, the inner pages */
+[data-theme="light"] .mail-glow { color: #3a2fc4; text-shadow: 0 0 22px rgba(124, 108, 246, .35); }
+[data-theme="light"] .mail-glow:hover { color: #2a20a8; text-shadow: 0 0 28px rgba(124, 108, 246, .55); }
+[data-theme="light"] :is(.field input, .field textarea) { background: rgba(255, 255, 255, .8); color: var(--text-primary); }
+[data-theme="light"] .form__status[data-state="sent"] { color: #0a8a4e; }
+[data-theme="light"] .form__status:is([data-state="failed"], [data-state="invalid"], [data-state="busy"], [data-state="name"], [data-state="email"], [data-state="message"]) { color: #c4265a; }
+[data-theme="light"] .foot { background: rgba(255, 255, 255, .66); }
+[data-theme="light"] .search { background: rgba(222, 228, 246, .6); }
+[data-theme="light"] .search__box input { color: var(--text-primary); }
+[data-theme="light"] :is(.search__item.is-active, .search__item:hover) { background: rgba(36, 48, 110, .07); }
+[data-theme="light"] .page-hero::before { background: radial-gradient(ellipse 60% 70% at 75% 0%, rgba(124, 108, 246, .18), transparent 70%); }
+[data-theme="light"] .stage__ring--2::after { background: var(--lunar-700); box-shadow: 0 0 12px rgba(66, 87, 214, .5); }
+[data-theme="light"] .prose th { background: rgba(36, 48, 110, .06); }
+[data-theme="light"] .prose code { color: var(--text-primary); }
+[data-theme="light"] .no-webgl .hero { background: radial-gradient(circle at 50% 45%, rgba(93, 115, 196, .2), transparent 40%); }
+
+/* ------------------------------------------------------------------ a phone or a tablet: glass without the blur
+   backdrop-filter blurs again, on every frame, whatever is behind it — and behind it the scene moves on
+   every frame. On a phone's graphics chip that doubled the frame time in Games and Tools, where the
+   cards and tiles fill the screen, and a finger made it worse (measured 7 Oct 2026). A denser tint
+   reads the same over the sky. A mouse means a computer, and a computer keeps the real glass and the grain. */
+
+@media (hover: none) {
+  :root {
+    --glass-blur: none; --capsule-blur: none; --soft-blur: none;
+    --glass-tint: linear-gradient(160deg, rgba(30, 36, 78, .8), rgba(8, 10, 24, .88));
+    --capsule-bg: rgba(14, 18, 40, .8); --capsule-bg-floating: rgba(10, 13, 30, .9);
+    --game-bg: linear-gradient(160deg, rgba(44, 10, 44, .8), rgba(4, 6, 14, .88));
+    --tile-bg: linear-gradient(160deg, rgba(12, 44, 76, .76), rgba(4, 8, 20, .86));
+  }
+  :root[data-theme="light"] {
+    --glass-tint: linear-gradient(160deg, rgba(255, 255, 255, .9), rgba(236, 240, 253, .84));
+    --capsule-bg: rgba(255, 255, 255, .86); --capsule-bg-floating: rgba(255, 255, 255, .94);
+    --game-bg: linear-gradient(160deg, rgba(255, 240, 250, .9), rgba(238, 255, 247, .84));
+    --tile-bg: linear-gradient(160deg, rgba(232, 248, 255, .92), rgba(245, 248, 255, .86));
+  }
+  .search { -webkit-backdrop-filter: none; backdrop-filter: none; background: rgba(3, 4, 10, .78); }
+  [data-theme="light"] .search { background: rgba(222, 228, 246, .86); }
+  /* the film grain over the whole page: a full-screen layer above everything, and while a finger
+     scrolls the page it cost a frame in three (measured: without it, a steady 60 a second). On a
+     phone's screen it was not to be seen anyway. */
+  .grain { display: none; }
+  /* the menu covers the hero's big words: with no blur it has to be all but solid */
+  .menu.glass { background: rgba(12, 15, 34, .97); }
+  [data-theme="light"] .menu.glass { background: rgba(250, 251, 255, .97); }
+}
 
 /* ------------------------------------------------------------------ motion off */
 

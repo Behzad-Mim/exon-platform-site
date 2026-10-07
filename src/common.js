@@ -51,6 +51,35 @@ for (const el of document.querySelectorAll("[data-toggle-lang]"))
     : saved || (/^(fa|ps|prs)\b/i.test(navigator.language || "") ? "fa" : "en"));
 }
 
+// ------------------------------------------------------------------ light and dark
+
+// Dark is the site's own, the moon's; light is a choice, remembered in this browser. Each page's
+// <head> applies a saved choice before the first paint, so a light page never flashes dark first.
+export function theme() { return root.dataset.theme === "light" ? "light" : "dark"; }
+
+function showTheme() {
+  const light = theme() === "light";
+  for (const el of document.querySelectorAll("[data-toggle-theme]")) el.setAttribute("aria-pressed", String(light));
+  document.querySelector('meta[name="theme-color"]')?.setAttribute("content", light ? "#eef1fa" : "#03040a");
+}
+
+export function setTheme(next) {
+  try { localStorage.setItem("moon.theme", next); } catch (e) { /* a private window */ }
+  const apply = () => {
+    if (next === "light") root.dataset.theme = "light";
+    else delete root.dataset.theme;
+    showTheme();
+    window.dispatchEvent(new Event("moon:theme"));
+  };
+  // a cross-fade where the browser has one; at once where it does not
+  if (document.startViewTransition && !still) document.startViewTransition(apply);
+  else apply();
+}
+
+for (const el of document.querySelectorAll("[data-toggle-theme]"))
+  el.addEventListener("click", () => setTheme(theme() === "light" ? "dark" : "light"));
+showTheme();
+
 // ------------------------------------------------------------------ smooth scrolling
 
 export let lenis = null;
@@ -137,6 +166,9 @@ const search = document.querySelector("[data-search]");
 if (search) {
   const input = search.querySelector("input");
   const list = search.querySelector("[data-results]");
+  // the list scrolls under the wheel and the touchpad itself: Lenis, stopped while search is open,
+  // would otherwise swallow every wheel event on the page, this list's too
+  list.setAttribute("data-lenis-prevent", "");
   let active = 0, shown = [];
 
   const open = () => {
@@ -181,10 +213,12 @@ if (search) {
     });
   }
 
+  // the arrow keys walk the list: the one they reach scrolls into sight
+  const keepInView = () => list.querySelector(".is-active")?.scrollIntoView({ block: "nearest" });
   input.addEventListener("input", () => { active = 0; render(); });
   input.addEventListener("keydown", (e) => {
-    if (e.key === "ArrowDown") { active = Math.min(shown.length - 1, active + 1); render(); e.preventDefault(); }
-    else if (e.key === "ArrowUp") { active = Math.max(0, active - 1); render(); e.preventDefault(); }
+    if (e.key === "ArrowDown") { active = Math.min(shown.length - 1, active + 1); render(); keepInView(); e.preventDefault(); }
+    else if (e.key === "ArrowUp") { active = Math.max(0, active - 1); render(); keepInView(); e.preventDefault(); }
     else if (e.key === "Enter") { list.querySelectorAll("a")[active]?.click(); e.preventDefault(); }
   });
   search.addEventListener("click", (e) => { if (e.target === search) close(); });

@@ -4,7 +4,7 @@
 // page is once a frame — how far the hero has burst, how far into Games and Tools — and eases there
 // itself, so a fast flick never makes it jump.
 
-import { body, gsap, lang, reveal, ScrollTrigger, still } from "./common.js";
+import { body, gsap, lang, reveal, ScrollTrigger, still, theme } from "./common.js";
 import { createScene } from "./scene.js";
 
 const small = innerWidth < 760;   // the scene's point count, chosen once
@@ -15,11 +15,22 @@ if (!scene) document.documentElement.classList.add("no-webgl");
 const $ = (s) => document.querySelector(s);
 const clamp = (v) => Math.min(1, Math.max(0, v));
 const PALETTE = {
-  hero: ["#f4f6ff", "#a9b8ea"],
-  apps: ["#8b7cf8", "#4f7cff"],
-  games: ["#ff3fa4", "#39ff9a"],
-  tools: ["#3fd0ff", "#2a6bff"],
-  end: ["#7f8fd0", "#3a4a8f"],
+  // light added over a dark sky
+  dark: {
+    hero: ["#f4f6ff", "#a9b8ea"],
+    apps: ["#8b7cf8", "#4f7cff"],
+    games: ["#ff3fa4", "#39ff9a"],
+    tools: ["#3fd0ff", "#2a6bff"],
+    end: ["#7f8fd0", "#3a4a8f"],
+  },
+  // ink over a light one: the same hues, deep enough to read on white
+  light: {
+    hero: ["#141a46", "#3a4c9e"],
+    apps: ["#5a3fe0", "#2457e6"],
+    games: ["#e01283", "#08a058"],
+    tools: ["#0886c8", "#1c48d0"],
+    end: ["#59649c", "#2e3c80"],
+  },
 };
 
 // ------------------------------------------------------------------ the hero and the devices, per width
@@ -140,7 +151,8 @@ if (updates) {
       updates.append(a);
     }
   };
-  fetch("/api/updates").then((r) => (r.ok ? r.json() : null)).then((j) => { items = j?.releases || null; render(); }).catch(() => {});
+  // the cards change the page's height under them: every pin and position below is measured again
+  fetch("/api/updates").then((r) => (r.ok ? r.json() : null)).then((j) => { items = j?.releases || null; render(); ScrollTrigger.refresh(); }).catch(() => {});
   window.addEventListener("moon:lang", render);
 }
 
@@ -149,33 +161,53 @@ if (updates) {
 if (scene) {
   const sections = { apps: $("#apps"), games: $("#games"), tools: $("#tools"), updates: $("#updates"), contact: $("#contact") };
   const layers = { hero: $(".sky__hero"), apps: $(".sky__apps"), games: $(".sky__games"), tools: $(".sky__tools") };
-  const vh = () => innerHeight;
-  const into = (el, from, to) => {
-    if (!el) return 0;
-    const top = el.getBoundingClientRect().top;
-    return clamp((from * vh() - top) / ((from - to) * vh()));
+
+  // Where each part starts on the page, measured when ScrollTrigger lays the page out (pins add their
+  // spacing then), not asked of the browser every frame: a getBoundingClientRect in the frame forced a
+  // style and layout pass first, and on a phone that was frame time the points needed.
+  const tops = {};
+  let vh = innerHeight, pageY = scrollY;
+  const measure = () => {
+    vh = innerHeight;
+    pageY = scrollY;
+    for (const [k, el] of Object.entries(sections)) if (el) tops[k] = el.getBoundingClientRect().top + scrollY;
+  };
+  measure();
+  ScrollTrigger.addEventListener("refresh", measure);
+  addEventListener("scroll", () => { pageY = scrollY; }, { passive: true });
+  addEventListener("resize", () => { vh = innerHeight; }, { passive: true });
+  const into = (key, from, to) => {
+    if (tops[key] === undefined) return 0;
+    const top = tops[key] - pageY;
+    return clamp((from * vh - top) / ((from - to) * vh));
   };
   const mix = (a, b, t) => a + (b - a) * t;
-  const colours = {};
-  for (const [k, [a, b]] of Object.entries(PALETTE)) colours[k] = [hex(a), hex(b)];
+  const palettes = {};
+  for (const [name, set] of Object.entries(PALETTE)) {
+    palettes[name] = {};
+    for (const [k, [a, b]] of Object.entries(set)) palettes[name][k] = [hex(a), hex(b)];
+  }
+  // what was last written, so a frame that changes nothing writes nothing (each write is a style recalc)
+  const written = { scene: "", layers: {} };
 
   function hex(h) { const n = parseInt(h.slice(1), 16); return [(n >> 16) / 255, ((n >> 8) & 255) / 255, (n & 255) / 255]; }
 
   function place() {
     const t = scene.target;
     const explode = clamp(heroProgress * 1.15);
-    const appsIn = into(sections.apps, 0.9, 0.1);
-    const ctrlIn = into(sections.games, 0.85, 0.3);
-    const gearIn = into(sections.tools, 0.85, 0.3);
-    const gearOut = into(sections.updates, 0.8, 0.2);
-    const end = into(sections.contact, 0.9, 0.3);
+    const appsIn = into("apps", 0.9, 0.1);
+    const ctrlIn = into("games", 0.85, 0.3);
+    const gearIn = into("tools", 0.85, 0.3);
+    const gearOut = into("updates", 0.8, 0.2);
+    const end = into("contact", 0.9, 0.3);
 
     t.explode = explode;
     t.ctrl = ctrlIn * (1 - gearIn);
     t.gear = gearIn * (1 - gearOut);
     t.camZ = mix(mix(6, 2.1, explode), narrow ? 9.5 : 7.4, appsIn);
     t.camY = 0;
-    t.opacity = mix(1, 0.35, end) * (narrow ? 0.9 : 1);
+    // on a phone the shapes sit behind the headings: by day, ink behind dark text, so fainter
+    t.opacity = mix(1, 0.35, end) * (narrow ? (theme() === "light" ? 0.65 : 0.9) : 1);
     t.ctrlX = narrow ? 0 : (lang() === "fa" ? -1.4 : 1.4);   // across from the heading
     t.gearX = narrow ? 0 : (lang() === "fa" ? -1.5 : 1.5);   // across from the heading
 
@@ -188,6 +220,7 @@ if (scene) {
       end: gearOut,
     };
     const total = Object.values(w).reduce((a, b) => a + b, 0) || 1;
+    const colours = palettes[theme()];
     const a = [0, 0, 0], b = [0, 0, 0];
     for (const [k, weight] of Object.entries(w))
       for (let i = 0; i < 3; i++) { a[i] += colours[k][0][i] * weight / total; b[i] += colours[k][1][i] * weight / total; }
@@ -195,9 +228,18 @@ if (scene) {
     t.colorB.setRGB(b[0], b[1], b[2]);
 
     // the sky behind it, a layer per part, crossfading
-    for (const [k, el] of Object.entries(layers)) if (el) el.style.opacity = (w[k] / total).toFixed(3);
-    body.dataset.scene = Object.entries(w).sort((x, y) => y[1] - x[1])[0][0];
+    for (const [k, el] of Object.entries(layers)) {
+      const o = (w[k] / total).toFixed(3);
+      if (el && written.layers[k] !== o) { el.style.opacity = o; written.layers[k] = o; }
+    }
+    const now = Object.entries(w).sort((x, y) => y[1] - x[1])[0][0];
+    if (written.scene !== now) { body.dataset.scene = now; written.scene = now; }
   }
+
+  // light or dark: the points as light, or as ink
+  const inkFor = () => { place(); scene.ink(theme() === "light"); };
+  inkFor();
+  addEventListener("moon:theme", inkFor);
 
   // the mouse, a pen, and a finger: on a phone or a touch screen the points part under the finger
   // while it moves, scrolling or not (touch events keep coming while the page scrolls; pointer
@@ -209,7 +251,10 @@ if (scene) {
     addEventListener("touchstart", touch, { passive: true });
     addEventListener("touchmove", touch, { passive: true });
   }
-  addEventListener("resize", () => { scene.size(); ScrollTrigger.refresh(); });
+  // the canvas follows the window; ScrollTrigger refreshes itself on a real resize, and on a phone
+  // it ignores the address bar sliding in and out — a refresh of every pin each time it did was a
+  // stall in the middle of a finger's scroll
+  addEventListener("resize", () => scene.size());
 
   // runs on GSAP's clock, the one Lenis and ScrollTrigger already share; rests when the tab is hidden
   gsap.ticker.add(() => {
