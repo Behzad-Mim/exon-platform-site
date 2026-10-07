@@ -9,239 +9,342 @@
 <meta name="description" content="Moon Platform makes apps, games and Windows tools. First out: Exon Platform, the offline ledger for hawala and currency exchange. مون پلتفرم اپ، بازی و ابزار ویندوز می‌سازد؛ اولی اکسون پلتفرم است، دفتر آفلاین صرافی و حواله.">
 <link rel="canonical" href="https://moonplatform.app/">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<meta name="theme-color" content="#04050b">
+<meta name="theme-color" content="#03040a">
 <meta property="og:title" content="Moon Platform — Apps, Games and Windows Tools">
 <meta property="og:description" content="Apps, games and Windows tools. First out: Exon Platform, the offline ledger for hawala and currency exchange.">
 <meta property="og:url" content="https://moonplatform.app/">
+<meta property="og:image" content="https://moonplatform.app/assets/og.jpg">
 <meta property="og:type" content="website">
-<link rel="stylesheet" href="/assets/moon.css">
-<script src="/assets/moon.js" defer></script>
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="/assets/site.css">
+<script type="module" src="/assets/main.js"></script>
 </head>
 <body data-lang="en">
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
   <symbol id="i-monitor" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="3" rx="2"/><path d="M8 21h8M12 17v4"/></symbol>
   <symbol id="i-phone" viewBox="0 0 24 24"><rect width="14" height="20" x="5" y="2" rx="2"/><path d="M12 18h.01"/></symbol>
-  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
-  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></symbol>
-  <symbol id="i-mail" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
   <symbol id="i-lock" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
   <symbol id="i-offline" viewBox="0 0 24 24"><path d="M12 20h.01M8.5 16.43a5 5 0 0 1 7 0M5 12.86a10 10 0 0 1 5.17-2.69M19 12.86a10 10 0 0 0-2-1.52M2 8.82a15 15 0 0 1 4.18-2.64M22 8.82a15 15 0 0 0-11.29-3.76M2 2l20 20"/></symbol>
-  <symbol id="i-devices" viewBox="0 0 24 24"><rect width="12" height="9" x="2" y="4" rx="1.5"/><path d="M5 17h6"/><rect width="7" height="12" x="15" y="8" rx="1.5"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></symbol>
+  <symbol id="i-lang" viewBox="0 0 24 24"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
+  <symbol id="i-gauge" viewBox="0 0 24 24"><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></symbol>
+  <symbol id="i-gear" viewBox="0 0 24 24"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></symbol>
   <symbol id="mark" viewBox="0 0 32 32"><defs><linearGradient id="mg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".55" stop-color="#dfe5fa"/><stop offset="1" stop-color="#7d92d9"/></linearGradient><mask id="mm"><rect width="32" height="32" fill="#fff"/><circle cx="21.5" cy="10.5" r="10.5" fill="#000"/></mask></defs><circle cx="15" cy="17" r="12" fill="url(#mg)" mask="url(#mm)"/><circle cx="25.5" cy="6.5" r="1.7" fill="#ffbf73"/></symbol>
 </svg>
 
-<div class="sky" aria-hidden="true"></div>
+<div class="sky" aria-hidden="true"><div class="sky__hero"></div><div class="sky__apps"></div><div class="sky__games"></div><div class="sky__tools"></div></div>
+<canvas class="scene" aria-hidden="true"></canvas>
 <div class="grain" aria-hidden="true"></div>
 
 <a class="skip" href="#main"><span data-l="en" lang="en">Skip to content</span><span data-l="fa" lang="fa">رفتن به محتوا</span></a>
 
-<header class="bar">
-  <div class="wrap bar__in">
-    <a class="brand" href="/" aria-label="Moon Platform"><svg aria-hidden="true"><use href="#mark"/></svg>Moon Platform</a>
-    <nav class="nav" aria-label="Sections">
-      <a href="#apps"><span data-l="en" lang="en">Apps</span><span data-l="fa" lang="fa">اپ‌ها</span></a>
-      <a href="#games"><span data-l="en" lang="en">Games</span><span data-l="fa" lang="fa">بازی‌ها</span></a>
-      <a href="#tools"><span data-l="en" lang="en">Windows Tools</span><span data-l="fa" lang="fa">ابزارهای ویندوز</span></a>
-    </nav>
-    <div class="langs" role="group" aria-label="Language">
-      <button type="button" data-set-lang="en" aria-pressed="true" lang="en">EN</button>
-      <button type="button" data-set-lang="fa" aria-pressed="false" lang="fa">فا</button>
+<header class="top">
+  <nav class="capsule" aria-label="Main">
+    <a class="capsule__mark" href="#top" aria-label="Moon Platform"><svg aria-hidden="true"><use href="#mark"/></svg></a>
+    <div class="capsule__tabs">
+      <a class="tab" href="#apps"><span data-l="en" lang="en">Apps</span><span data-l="fa" lang="fa">اپ‌ها</span></a>
+      <a class="tab" href="#games"><span data-l="en" lang="en">Games</span><span data-l="fa" lang="fa">بازی‌ها</span></a>
+      <a class="tab" href="#tools"><span data-l="en" lang="en">Windows Tools</span><span data-l="fa" lang="fa">ابزارهای ویندوز</span></a>
+      <a class="tab" href="#updates"><span data-l="en" lang="en">Updates</span><span data-l="fa" lang="fa">به‌روزرسانی‌ها</span></a>
+      <button class="tab" type="button" data-open-search><svg class="icon" aria-hidden="true"><use href="#i-search"/></svg><span data-l="en" lang="en">Search</span><span data-l="fa" lang="fa">جستجو</span><kbd>/</kbd></button>
     </div>
-  </div>
+    <button class="tab tab--lang" type="button" data-toggle-lang aria-label="English / فارسی">فا</button>
+    <a class="capsule__cta" href="/exon"><span data-l="en" lang="en">Get Started</span><span data-l="fa" lang="fa">شروع کنید</span></a>
+    <button class="capsule__menu" type="button" data-menu-button aria-expanded="false" aria-controls="menu" aria-label="Menu"><svg class="icon" aria-hidden="true"><use href="#i-menu"/></svg></button>
+  </nav>
 </header>
+<div class="menu glass" id="menu" data-menu hidden>
+  <a href="#apps"><span data-l="en" lang="en">Apps</span><span data-l="fa" lang="fa">اپ‌ها</span></a>
+  <a href="#games"><span data-l="en" lang="en">Games</span><span data-l="fa" lang="fa">بازی‌ها</span></a>
+  <a href="#tools"><span data-l="en" lang="en">Windows Tools</span><span data-l="fa" lang="fa">ابزارهای ویندوز</span></a>
+  <a href="#updates"><span data-l="en" lang="en">Updates</span><span data-l="fa" lang="fa">به‌روزرسانی‌ها</span></a>
+  <button type="button" data-open-search><span data-l="en" lang="en">Search</span><span data-l="fa" lang="fa">جستجو</span><svg class="icon" aria-hidden="true"><use href="#i-search"/></svg></button>
+  <button type="button" data-toggle-lang aria-label="English / فارسی">فا</button>
+</div>
 
 <main id="main">
 
-  <section class="hero" aria-labelledby="hero-title">
-    <canvas class="hero__moon" aria-hidden="true"></canvas>
-    <div class="wrap hero__in">
-      <div class="hero__copy">
-        <p class="hud" data-reveal>
-          <span data-l="en" lang="en">Moon Platform — Apps · Games · Windows Tools</span>
-          <span data-l="fa" lang="fa">Moon Platform — اپ‌ها · بازی‌ها · ابزارهای ویندوز</span>
-        </p>
-        <h1 class="display" id="hero-title" data-reveal style="--d:80ms">
-          <span data-l="en" lang="en">Software that works, even in the dark.</span>
-          <span data-l="fa" lang="fa">نرم‌افزاری که در تاریکی هم کار می‌کند.</span>
-        </h1>
-        <p class="lead" data-reveal style="--d:160ms">
-          <span data-l="en" lang="en">We make apps, games and Windows tools. The first one is out: Exon Platform —
-            a ledger for hawala and currency exchange that keeps working with the internet off.</span>
-          <span data-l="fa" lang="fa">ما اپ، بازی و ابزار ویندوز می‌سازیم. اولی منتشر شده: اکسون پلتفرم — دفتر
-            صرافی و حواله که با اینترنت خاموش هم کار می‌کند.</span>
-        </p>
-        <div class="btns" data-reveal style="--d:240ms">
-          <a class="btn btn--primary" href="#apps">
-            <span data-l="en" lang="en">Explore the apps</span><span data-l="fa" lang="fa">دیدن اپ‌ها</span>
-            <svg class="icon icon--dir" aria-hidden="true"><use href="#i-arrow"/></svg>
-          </a>
-          <a class="btn btn--glass" href="/exon">
-            <span data-l="en" lang="en">Get Exon Platform</span><span data-l="fa" lang="fa">دریافت اکسون پلتفرم</span>
-          </a>
-        </div>
-      </div>
+  <section class="hero" id="top" aria-labelledby="hero-title">
+    <div class="hero__words">
+      <p class="hud">
+        <span data-l="en" lang="en">Moon Platform — Apps · Games · Windows Tools</span>
+        <span data-l="fa" lang="fa">Moon Platform — اپ‌ها · بازی‌ها · ابزارهای ویندوز</span>
+      </p>
+      <h1 class="display" id="hero-title">
+        <span data-l="en" lang="en">Software that works, even in the dark.</span>
+        <span data-l="fa" lang="fa">نرم‌افزاری که در تاریکی هم کار می‌کند.</span>
+      </h1>
+      <p class="lead">
+        <span data-l="en" lang="en">We make apps, games and Windows tools. The first is out: Exon Platform — a ledger for hawala
+          and currency exchange that keeps working with the internet off.</span>
+        <span data-l="fa" lang="fa">ما اپ، بازی و ابزار ویندوز می‌سازیم. اولی منتشر شده: اکسون پلتفرم — دفتر صرافی و حواله که با
+          اینترنت خاموش هم کار می‌کند.</span>
+      </p>
     </div>
     <div class="hero__hud" aria-hidden="true">
       <div class="scrollcue hud"><i></i><span data-l="en">Scroll</span><span data-l="fa">پایین بروید</span></div>
       <div class="hud">moonplatform.app</div>
     </div>
+    <div class="hero__flash" aria-hidden="true"></div>
   </section>
 
-  <div class="mega" aria-hidden="true">
-    <div class="mega__line" data-slide="-1">
-      <span data-l="en">Apps</span><i data-l="en"></i><b data-l="en">Games</b><i data-l="en"></i><span data-l="en">Windows Tools</span><i data-l="en"></i><b data-l="en">Apps</b>
-      <span data-l="fa">اپ‌ها</span><i data-l="fa"></i><b data-l="fa">بازی‌ها</b><i data-l="fa"></i><span data-l="fa">ابزارهای ویندوز</span><i data-l="fa"></i><b data-l="fa">اپ‌ها</b>
-    </div>
-    <div class="mega__line" data-slide="1">
-      <b data-l="en">Tools</b><i data-l="en"></i><span data-l="en">Moon Platform</span><i data-l="en"></i><b data-l="en">Games</b><i data-l="en"></i><span data-l="en">Apps</span>
-      <b data-l="fa">ابزارها</b><i data-l="fa"></i><span data-l="fa">Moon Platform</span><i data-l="fa"></i><b data-l="fa">بازی‌ها</b><i data-l="fa"></i><span data-l="fa">اپ‌ها</span>
-    </div>
-  </div>
-
-  <div class="wrap">
-
-    <section class="section" id="apps" aria-labelledby="apps-title">
+  <section class="section" id="apps" aria-labelledby="apps-title">
+    <div class="wrap">
       <div class="section__head">
         <p class="hud" data-reveal><span data-l="en">01 / Apps</span><span data-l="fa">۰۱ / اپ‌ها</span></p>
-        <h2 class="h1" id="apps-title" data-reveal style="--d:80ms">
+        <h2 class="h1" id="apps-title" data-reveal>
           <span data-l="en" lang="en">Apps, in use today.</span>
           <span data-l="fa" lang="fa">اپ‌هایی که امروز کار می‌کنند.</span>
         </h2>
-        <p class="lead muted" data-reveal style="--d:160ms">
-          <span data-l="en" lang="en">Built for real counters and real books: quick to open, private by design, and at
-            home in Persian, Pashto and English.</span>
-          <span data-l="fa" lang="fa">برای پیشخوان و دفتر واقعی ساخته شده: زود باز می‌شود، از اول خصوصی است، و به
-            فارسی، پشتو و انگلیسی کار می‌کند.</span>
+        <p class="lead muted" data-reveal>
+          <span data-l="en" lang="en">Built for real counters and real books: quick to open, private by design, and at home in
+            Persian, Pashto and English — on Windows and on Android.</span>
+          <span data-l="fa" lang="fa">برای پیشخوان و دفتر واقعی ساخته شده: زود باز می‌شود، از اول خصوصی است، و به فارسی، پشتو و
+            انگلیسی کار می‌کند — روی ویندوز و اندروید.</span>
         </p>
       </div>
+    </div>
 
-      <div data-reveal>
-        <article class="card glass tilt app" aria-labelledby="exon-title">
-          <div class="app__copy">
-            <span class="chip"><i></i><span data-l="en">Available now</span><span data-l="fa">منتشر شده</span></span>
-            <div class="app__name">
-              <img src="/assets/exon-icon.png" width="56" height="56" alt="">
-              <div>
-                <h3 class="h2" id="exon-title"><span data-l="en" lang="en">Exon Platform</span><span data-l="fa" lang="fa">اکسون پلتفرم</span></h3>
-                <p class="muted" style="margin:0">
-                  <span data-l="en" lang="en">The offline ledger for hawala and currency exchange.</span>
-                  <span data-l="fa" lang="fa">دفتر آفلاین صرافی و حواله.</span>
-                </p>
-              </div>
+    <div class="apps-show">
+      <div class="wrap">
+        <div class="stage3d" aria-hidden="true">
+          <div class="monitor3d">
+            <div class="monitor3d__frame">
+              <img data-l="en" src="/assets/screens/en/desk-dashboard.webp" width="1024" height="640" alt="" loading="lazy">
+              <img data-l="fa" src="/assets/screens/fa/desk-dashboard.webp" width="1024" height="640" alt="" loading="lazy">
             </div>
-            <p style="margin:0">
-              <span data-l="en" lang="en">Transfers, cash in and out, exchanges, customer accounts and daily balance
-                sheets — encrypted on your own device with your own password. Staff phones, printed statements and
-                backups to your own Google Drive, with no account to create anywhere.</span>
-              <span data-l="fa" lang="fa">ارسال و دریافت حواله، رسید و برد، تبادله، حساب مشتریان و بیلانس روزانه —
-                رمزگذاری‌شده روی دستگاه خودتان و با رمز خودتان. گوشی کارمندان، صورت‌حساب چاپی و بک‌اپ در گوگل درایو
-                خودتان، بدون ساختن هیچ حسابی در هیچ‌جا.</span>
-            </p>
-            <p class="hud facts">
-              <span data-l="en">Windows 10+</span><span data-l="en">Android 5+</span><span data-l="en">FA · PS · EN</span><span data-l="en">Free</span>
-              <span data-l="fa">ویندوز ۱۰ به بالا</span><span data-l="fa">اندروید ۵ به بالا</span><span data-l="fa">فارسی · پشتو · انگلیسی</span><span data-l="fa">رایگان</span>
-            </p>
-            <div class="btns">
-              <a class="btn btn--primary" href="/exon/download/windows">
-                <svg class="icon" aria-hidden="true"><use href="#i-monitor"/></svg>
-                <span data-l="en" lang="en">Download for Windows</span><span data-l="fa" lang="fa">دانلود برای ویندوز</span>
-              </a>
-              <a class="btn btn--glass" href="/exon/download/android">
-                <svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg>
-                <span data-l="en" lang="en">Download for Android</span><span data-l="fa" lang="fa">دانلود برای اندروید</span>
-              </a>
-            </div>
-            <a class="link-arrow" href="/exon">
-              <span data-l="en" lang="en">Everything about Exon Platform</span><span data-l="fa" lang="fa">همه‌چیز دربارهٔ اکسون پلتفرم</span>
-              <svg class="icon icon--dir" aria-hidden="true"><use href="#i-arrow"/></svg>
-            </a>
+            <div class="monitor3d__neck"></div><div class="monitor3d__foot"></div>
           </div>
+          <div class="phone3d">
+            <div class="phone3d__frame">
+              <img data-l="en" src="/assets/screens/en/phone-account.webp" width="412" height="915" alt="" loading="lazy">
+              <img data-l="fa" src="/assets/screens/fa/phone-account.webp" width="412" height="915" alt="" loading="lazy">
+            </div>
+          </div>
+          <div class="holo holo--1"><svg class="icon"><use href="#i-offline"/></svg><span data-l="en">Offline ledger</span><span data-l="fa">دفتر بدون اینترنت</span></div>
+          <div class="holo holo--2"><svg class="icon"><use href="#i-lock"/></svg><span data-l="en">Encrypted on device</span><span data-l="fa">رمزدار روی دستگاه</span></div>
+          <div class="holo holo--3"><svg class="icon"><use href="#i-send"/></svg><span data-l="en">A hawala in seconds</span><span data-l="fa">حواله در چند ثانیه</span></div>
+          <div class="holo holo--4"><svg class="icon"><use href="#i-lang"/></svg><span data-l="en">Persian · Pashto · English</span><span data-l="fa">فارسی · پشتو · انگلیسی</span></div>
+        </div>
+      </div>
+    </div>
 
-          <div class="stage" aria-hidden="true">
-            <span class="stage__ring stage__ring--2"></span>
-            <span class="stage__ring stage__ring--1"></span>
-            <img class="stage__icon" src="/assets/exon-icon.png" width="256" height="256" alt="">
-            <span class="stage__tag stage__tag--a glass"><svg class="icon"><use href="#i-offline"/></svg><span data-l="en">Works offline</span><span data-l="fa">بدون اینترنت</span></span>
-            <span class="stage__tag stage__tag--b glass"><svg class="icon"><use href="#i-lock"/></svg><span data-l="en">Encrypted on device</span><span data-l="fa">رمزدار روی دستگاه</span></span>
-            <span class="stage__tag stage__tag--c glass"><svg class="icon"><use href="#i-devices"/></svg><span data-l="en">PC + phone</span><span data-l="fa">کامپیوتر + گوشی</span></span>
+    <div class="wrap">
+      <article class="app glass" aria-labelledby="exon-title" data-reveal>
+        <img class="app__icon" src="/assets/exon-icon.png" width="120" height="120" alt="Exon Platform">
+        <div class="app__copy">
+          <span class="chip"><i></i><span data-l="en">Available now · Free</span><span data-l="fa">منتشر شده · رایگان</span></span>
+          <h3 class="h2" id="exon-title"><span data-l="en" lang="en">Exon Platform</span><span data-l="fa" lang="fa">اکسون پلتفرم</span></h3>
+          <p class="muted" style="margin:0">
+            <span data-l="en" lang="en">Transfers, cash in and out, exchanges, customer accounts and daily balance sheets —
+              encrypted on your own device with your own password. Staff phones, printed statements and backups to your own
+              Google Drive, with no account to create anywhere.</span>
+            <span data-l="fa" lang="fa">ارسال و دریافت حواله، رسید و برد، تبادله، حساب مشتریان و بیلانس روزانه — رمزگذاری‌شده
+              روی دستگاه خودتان و با رمز خودتان. گوشی کارمندان، صورت‌حساب چاپی و بک‌اپ در گوگل درایو خودتان، بدون ساختن هیچ
+              حسابی در هیچ‌جا.</span>
+          </p>
+          <p class="hud facts">
+            <span data-l="en">Windows 10+</span><span data-l="en">Android 5+</span><span data-l="en">FA · PS · EN</span>
+            <span data-l="fa">ویندوز ۱۰ به بالا</span><span data-l="fa">اندروید ۵ به بالا</span><span data-l="fa">فارسی · پشتو · انگلیسی</span>
+          </p>
+          <div class="btns">
+            <a class="btn btn--gloss" href="/exon/download/windows"><svg class="icon" aria-hidden="true"><use href="#i-monitor"/></svg>
+              <span data-l="en" lang="en">Download for Windows</span><span data-l="fa" lang="fa">دانلود برای ویندوز</span></a>
+            <a class="btn btn--glass" href="/exon/download/android"><svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg>
+              <span data-l="en" lang="en">Download for Android</span><span data-l="fa" lang="fa">دانلود برای اندروید</span></a>
+          </div>
+          <a class="link-arrow" href="/exon"><span data-l="en" lang="en">Everything about Exon Platform</span><span data-l="fa" lang="fa">همه‌چیز دربارهٔ اکسون پلتفرم</span>
+            <svg class="icon icon--dir" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        </div>
+      </article>
+
+      <div class="gallery" data-reveal>
+        <div class="gallery__head">
+          <h3 class="h2"><span data-l="en" lang="en">A look inside</span><span data-l="fa" lang="fa">نگاهی به داخل</span></h3>
+          <div class="gallery__nav">
+            <button type="button" data-strip="-1" aria-label="Back"><svg class="icon"><use href="#i-left"/></svg></button>
+            <button type="button" data-strip="1" aria-label="Next"><svg class="icon"><use href="#i-right"/></svg></button>
+          </div>
+        </div>
+        <div class="strip" data-strip-list tabindex="0">
+          <img data-l="en" class="shot-phone" src="/assets/shots/en/phone-dashboard.webp" width="720" height="1280" alt="Exon Platform: your cash at a glance" loading="lazy">
+          <img data-l="en" class="shot-phone" src="/assets/shots/en/phone-hawala.webp" width="720" height="1280" alt="Exon Platform: a hawala in seconds" loading="lazy">
+          <img data-l="en" class="shot-phone" src="/assets/shots/en/phone-account.webp" width="720" height="1280" alt="Exon Platform: one account, every kind of deal" loading="lazy">
+          <img data-l="en" class="shot-desk" src="/assets/shots/en/desk-dashboard.webp" width="1280" height="720" alt="Exon Platform on Windows" loading="lazy">
+          <img data-l="en" class="shot-phone" src="/assets/shots/en/phone-customers.webp" width="720" height="1280" alt="Exon Platform: every account in one list" loading="lazy">
+          <img data-l="en" class="shot-phone" src="/assets/shots/en/phone-exchange.webp" width="720" height="1280" alt="Exon Platform: currency exchange" loading="lazy">
+          <img data-l="en" class="shot-phone" src="/assets/shots/en/phone-page-trade.webp" width="720" height="1280" alt="Exon Platform: buying and selling, worked out" loading="lazy">
+          <img data-l="en" class="shot-desk" src="/assets/shots/en/desk-account.webp" width="1280" height="720" alt="Exon Platform on Windows: an account" loading="lazy">
+          <img data-l="en" class="shot-phone" src="/assets/shots/en/phone-finance.webp" width="720" height="1280" alt="Exon Platform: income and expenses" loading="lazy">
+          <img data-l="en" class="shot-phone" src="/assets/shots/en/phone-statement.webp" width="720" height="1280" alt="Exon Platform: statements to share" loading="lazy">
+          <img data-l="en" class="shot-phone" src="/assets/shots/en/phone-lock.webp" width="720" height="1280" alt="Exon Platform: locked with your PIN" loading="lazy">
+          <img data-l="en" class="shot-desk" src="/assets/shots/en/desk-page-trade.webp" width="1280" height="720" alt="Exon Platform on Windows: know your profit" loading="lazy">
+          <img data-l="fa" class="shot-phone" src="/assets/shots/fa/phone-dashboard.webp" width="720" height="1280" alt="اکسون پلتفرم: موجودی صندوق در یک نگاه" loading="lazy">
+          <img data-l="fa" class="shot-phone" src="/assets/shots/fa/phone-hawala.webp" width="720" height="1280" alt="اکسون پلتفرم: ثبت حواله در چند ثانیه" loading="lazy">
+          <img data-l="fa" class="shot-phone" src="/assets/shots/fa/phone-account.webp" width="720" height="1280" alt="اکسون پلتفرم: یک حساب، همهٔ معاملات" loading="lazy">
+          <img data-l="fa" class="shot-desk" src="/assets/shots/fa/desk-dashboard.webp" width="1280" height="720" alt="اکسون پلتفرم روی ویندوز" loading="lazy">
+          <img data-l="fa" class="shot-phone" src="/assets/shots/fa/phone-customers.webp" width="720" height="1280" alt="اکسون پلتفرم: همهٔ حساب‌ها در یک فهرست" loading="lazy">
+          <img data-l="fa" class="shot-phone" src="/assets/shots/fa/phone-exchange.webp" width="720" height="1280" alt="اکسون پلتفرم: تبادلهٔ ارز" loading="lazy">
+          <img data-l="fa" class="shot-phone" src="/assets/shots/fa/phone-page-trade.webp" width="720" height="1280" alt="اکسون پلتفرم: خرید و فروش، حساب‌شده" loading="lazy">
+          <img data-l="fa" class="shot-desk" src="/assets/shots/fa/desk-account.webp" width="1280" height="720" alt="اکسون پلتفرم روی ویندوز: یک حساب" loading="lazy">
+          <img data-l="fa" class="shot-phone" src="/assets/shots/fa/phone-finance.webp" width="720" height="1280" alt="اکسون پلتفرم: عواید و مصارف" loading="lazy">
+          <img data-l="fa" class="shot-phone" src="/assets/shots/fa/phone-statement.webp" width="720" height="1280" alt="اکسون پلتفرم: صورت‌حساب برای فرستادن" loading="lazy">
+          <img data-l="fa" class="shot-phone" src="/assets/shots/fa/phone-lock.webp" width="720" height="1280" alt="اکسون پلتفرم: قفل با رمز خودتان" loading="lazy">
+          <img data-l="fa" class="shot-desk" src="/assets/shots/fa/desk-page-trade.webp" width="1280" height="720" alt="اکسون پلتفرم روی ویندوز: سودتان را بدانید" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="games" aria-labelledby="games-title">
+    <div class="wrap">
+      <div class="section__head">
+        <p class="hud" data-reveal><span data-l="en">02 / Games</span><span data-l="fa">۰۲ / بازی‌ها</span></p>
+        <h2 class="h1" id="games-title" data-reveal><span data-l="en" lang="en">Games, coming soon.</span><span data-l="fa" lang="fa">بازی‌ها، به‌زودی.</span></h2>
+        <p class="lead muted" data-reveal>
+          <span data-l="en" lang="en">Something louder is being built on the dark side of the moon. The names stay hidden until
+            they are ready to be played.</span>
+          <span data-l="fa" lang="fa">در سمت تاریک ماه چیزی پرهیجان‌تر ساخته می‌شود. نام‌ها تا وقتی آمادهٔ بازی نشده‌اند پنهان
+            می‌مانند.</span>
+        </p>
+      </div>
+      <div class="games-grid">
+        <article class="game-card glass">
+          <span class="chip chip--soon"><i></i><span data-l="en">In development · Coming soon</span><span data-l="fa">در حال ساخت · به‌زودی</span></span>
+          <div>
+            <p class="glitch" data-text="GAME_01 ▓▓▓▓" aria-label="Game 01">GAME_01 ▓▓▓▓</p>
+            <p class="muted" style="margin:var(--s3) 0 0"><span data-l="en" lang="en">A title we are not ready to name.</span><span data-l="fa" lang="fa">نامی که هنوز نمی‌گوییم.</span></p>
+          </div>
+        </article>
+        <article class="game-card glass">
+          <span class="chip chip--soon"><i></i><span data-l="en">In development · Coming soon</span><span data-l="fa">در حال ساخت · به‌زودی</span></span>
+          <div>
+            <p class="glitch" data-text="GAME_02 ▓▓▓▓" aria-label="Game 02">GAME_02 ▓▓▓▓</p>
+            <p class="muted" style="margin:var(--s3) 0 0"><span data-l="en" lang="en">Still in the dark. It will appear here first.</span><span data-l="fa" lang="fa">هنوز در تاریکی است. اول همین‌جا می‌آید.</span></p>
           </div>
         </article>
       </div>
-    </section>
-
-    <div class="pair">
-      <section class="section" id="games" aria-labelledby="games-title">
-        <div class="section__head" style="margin-bottom:var(--s6)">
-          <p class="hud" data-reveal><span data-l="en">02 / Games</span><span data-l="fa">۰۲ / بازی‌ها</span></p>
-        </div>
-        <div data-reveal style="--d:80ms">
-          <article class="card glass soon">
-            <div class="soon__art" aria-hidden="true"><div class="newmoon"></div></div>
-            <span class="chip chip--soon"><i></i><span data-l="en">In development · Coming soon</span><span data-l="fa">در حال ساخت · به‌زودی</span></span>
-            <h2 class="h2" id="games-title"><span data-l="en" lang="en">Games</span><span data-l="fa" lang="fa">بازی‌ها</span></h2>
-            <p class="muted" style="margin:0">
-              <span data-l="en" lang="en">Something is taking shape on the dark side. Our first games are in
-                development, and they will appear here first.</span>
-              <span data-l="fa" lang="fa">چیزی در سمت تاریک ماه شکل می‌گیرد. اولین بازی‌های ما در حال ساخت‌اند و اول
-                همین‌جا می‌آیند.</span>
-            </p>
-          </article>
-        </div>
-      </section>
-
-      <section class="section" id="tools" aria-labelledby="tools-title">
-        <div class="section__head" style="margin-bottom:var(--s6)">
-          <p class="hud" data-reveal><span data-l="en">03 / Windows Tools</span><span data-l="fa">۰۳ / ابزارهای ویندوز</span></p>
-        </div>
-        <div data-reveal style="--d:160ms">
-          <article class="card glass soon">
-            <div class="soon__art" aria-hidden="true"><div class="lightwin"></div></div>
-            <span class="chip chip--soon"><i></i><span data-l="en">In development · Coming soon</span><span data-l="fa">در حال ساخت · به‌زودی</span></span>
-            <h2 class="h2" id="tools-title"><span data-l="en" lang="en">Windows Tools</span><span data-l="fa" lang="fa">ابزارهای ویندوز</span></h2>
-            <p class="muted" style="margin:0">
-              <span data-l="en" lang="en">Small, sharp utilities for the PC you work on every day. They are being built
-                now and will be published here when they are ready.</span>
-              <span data-l="fa" lang="fa">ابزارهای کوچک و دقیق برای کامپیوتری که هر روز با آن کار می‌کنید. الان در حال
-                ساخت‌اند و وقتی آماده شدند همین‌جا منتشر می‌شوند.</span>
-            </p>
-          </article>
-        </div>
-      </section>
     </div>
+  </section>
 
-    <section class="contact glass" aria-labelledby="contact-title" data-reveal>
-      <p class="hud"><span data-l="en">Contact</span><span data-l="fa">تماس</span></p>
-      <h2 class="h1" id="contact-title">
-        <span data-l="en" lang="en">Questions, ideas, or a shop to set up?</span>
-        <span data-l="fa" lang="fa">سؤال، پیشنهاد یا دفتری برای راه‌اندازی دارید؟</span>
-      </h2>
-      <div class="btns" style="justify-content:center">
-        <a class="btn btn--primary" href="https://wa.me/93792268198">
-          <svg class="icon" aria-hidden="true"><use href="#i-chat"/></svg>
-          <span data-l="en" lang="en">WhatsApp</span><span data-l="fa" lang="fa">واتساپ</span>
-        </a>
-        <a class="btn btn--glass" href="mailto:contact@moonplatform.app">
-          <svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg>
-          <span>contact@moonplatform.app</span>
+  <section class="section" id="tools" aria-labelledby="tools-title">
+    <div class="wrap">
+      <div class="section__head">
+        <p class="hud" data-reveal><span data-l="en">03 / Windows Tools</span><span data-l="fa">۰۳ / ابزارهای ویندوز</span></p>
+        <h2 class="h1" id="tools-title" data-reveal><span data-l="en" lang="en">Windows Tools, in the works.</span><span data-l="fa" lang="fa">ابزارهای ویندوز، در دست ساخت.</span></h2>
+        <p class="lead muted" data-reveal>
+          <span data-l="en" lang="en">Small, sharp utilities for the PC you work on every day. They are being built now and will
+            be published here when they are ready.</span>
+          <span data-l="fa" lang="fa">ابزارهای کوچک و دقیق برای کامپیوتری که هر روز با آن کار می‌کنید. الان در حال ساخت‌اند و وقتی
+            آماده شدند همین‌جا منتشر می‌شوند.</span>
+        </p>
+      </div>
+      <div class="bento">
+        <article class="tile tile--wide tile--tall glass">
+          <span class="chip chip--soon"><i></i><span data-l="en">Building</span><span data-l="fa">در حال ساخت</span></span>
+          <div class="term" data-type data-type-en="C:\&gt; moon tools --status|scanning the workshop …|tool_01.exe    ▓▓▓▓▓▓▓░░  in development|tool_02.exe    ▓▓▓▓░░░░░  in development|tool_03.exe    ▓▓░░░░░░░  in development|release: coming soon" data-type-fa="C:\&gt; moon tools --status|scanning the workshop …|tool_01.exe    ▓▓▓▓▓▓▓░░  در حال ساخت|tool_02.exe    ▓▓▓▓░░░░░  در حال ساخت|tool_03.exe    ▓▓░░░░░░░  در حال ساخت|انتشار: به‌زودی">
+            <div class="term__bar"><i></i><i></i><i></i></div>
+            <pre aria-live="off"></pre>
+          </div>
+          <div>
+            <h3><span data-l="en" lang="en">Made in the open, released when finished</span><span data-l="fa" lang="fa">ساخته‌شده با حوصله، منتشر وقتی تمام شد</span></h3>
+            <p><span data-l="en" lang="en">Point at this window, and it tells you where the workshop stands.</span><span data-l="fa" lang="fa">موس را روی این پنجره ببرید تا بگوید کار کجاست.</span></p>
+          </div>
+        </article>
+        <article class="tile glass">
+          <svg class="gear" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><use href="#i-gear"/></svg>
+          <div><p class="redacted">████████.exe</p><p><span data-l="en">In development</span><span data-l="fa">در حال ساخت</span></p></div>
+        </article>
+        <article class="tile glass">
+          <svg class="gear gear--rev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><use href="#i-gauge"/></svg>
+          <div><p class="redacted">██████.exe</p><p><span data-l="en">In development</span><span data-l="fa">در حال ساخت</span></p></div>
+        </article>
+        <article class="tile glass">
+          <svg class="gear" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><use href="#i-shield"/></svg>
+          <div><p class="redacted">█████████.exe</p><p><span data-l="en">In development</span><span data-l="fa">در حال ساخت</span></p></div>
+        </article>
+        <article class="tile glass">
+          <svg class="gear gear--rev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><use href="#i-gear"/></svg>
+          <div>
+            <h3><span data-l="en" lang="en">Want to know first?</span><span data-l="fa" lang="fa">می‌خواهید اول خبردار شوید؟</span></h3>
+            <a class="link-arrow" href="#contact"><span data-l="en" lang="en">Write to us</span><span data-l="fa" lang="fa">برای ما بنویسید</span><svg class="icon icon--dir"><use href="#i-arrow"/></svg></a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="updates" aria-labelledby="updates-title">
+    <div class="wrap">
+      <div class="section__head">
+        <p class="hud" data-reveal><span data-l="en">04 / Updates</span><span data-l="fa">۰۴ / به‌روزرسانی‌ها</span></p>
+        <h2 class="h1" id="updates-title" data-reveal><span data-l="en" lang="en">What is new.</span><span data-l="fa" lang="fa">تازه‌ها.</span></h2>
+      </div>
+      <div class="updates" data-updates>
+        <a class="update glass" href="/exon/download">
+          <div class="update__head"><span class="update__version">Exon Platform</span></div>
+          <p><span data-l="en" lang="en">The newest release, its notes, sizes and checksums.</span><span data-l="fa" lang="fa">آخرین نسخه، یادداشت‌ها، حجم و هش فایل‌ها.</span></p>
         </a>
       </div>
-    </section>
-  </div>
+      <p style="margin-top:var(--s6)"><a class="link-arrow" href="https://github.com/Behzad-Mim/exon-platform-releases/releases">
+        <span data-l="en" lang="en">Every release of Exon Platform</span><span data-l="fa" lang="fa">همهٔ نسخه‌های اکسون پلتفرم</span>
+        <svg class="icon icon--dir" aria-hidden="true"><use href="#i-arrow"/></svg></a></p>
+    </div>
+  </section>
+
+  <section class="contact" id="contact" aria-labelledby="contact-title">
+    <div class="wrap" style="display:grid;justify-items:center;gap:var(--s8)">
+      <p class="hud" data-reveal><span data-l="en">05 / Contact</span><span data-l="fa">۰۵ / تماس</span></p>
+      <h2 class="h1" id="contact-title" data-reveal><span data-l="en" lang="en">Talk to the moon.</span><span data-l="fa" lang="fa">با ما حرف بزنید.</span></h2>
+      <a class="mail-glow" href="mailto:contact@moonplatform.app" data-reveal>contact@moonplatform.app</a>
+      <form class="form glass" data-contact data-reveal novalidate>
+        <div class="row">
+          <label class="field"><span><span data-l="en">Your name</span><span data-l="fa">نام شما</span></span><input name="name" autocomplete="name" maxlength="100" required></label>
+          <label class="field"><span><span data-l="en">Your email</span><span data-l="fa">ایمیل شما</span></span><input name="email" type="email" autocomplete="email" maxlength="200" required dir="ltr"></label>
+        </div>
+        <label class="field"><span><span data-l="en">Message</span><span data-l="fa">پیام</span></span><textarea name="message" maxlength="4000" required></textarea></label>
+        <label class="honey" aria-hidden="true">Company<input name="company" tabindex="-1" autocomplete="off"></label>
+        <div class="form__foot">
+          <p class="form__status" data-status aria-live="polite"></p>
+          <button class="btn btn--gloss" type="submit"><svg class="icon" aria-hidden="true"><use href="#i-send"/></svg><span data-l="en">Send</span><span data-l="fa">فرستادن</span></button>
+        </div>
+        <p class="note"><span data-l="en" lang="en">Your message goes straight to our inbox. Nothing else is kept.</span><span data-l="fa" lang="fa">پیام شما مستقیم به صندوق ایمیل ما می‌رود و چیز دیگری نگه داشته نمی‌شود.</span></p>
+      </form>
+      <div class="btns" style="justify-content:center" data-reveal>
+        <a class="btn btn--glass" href="https://wa.me/93792268198"><svg class="icon" aria-hidden="true"><use href="#i-chat"/></svg><span data-l="en">WhatsApp</span><span data-l="fa">واتساپ</span></a>
+        <a class="btn btn--glass" href="mailto:support@moonplatform.app"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg><span data-l="en">Exon support</span><span data-l="fa">پشتیبانی اکسون</span></a>
+      </div>
+    </div>
+  </section>
 </main>
 
 <footer class="foot">
   <div class="wrap foot__in">
-    <a class="brand" href="/" aria-label="Moon Platform"><svg aria-hidden="true"><use href="#mark"/></svg>Moon Platform</a>
+    <a class="foot__brand" href="#top"><svg aria-hidden="true"><use href="#mark"/></svg>Moon Platform</a>
     <span class="muted">© 2026 Moon Platform</span>
     <nav class="foot__links" aria-label="Footer">
       <a href="/exon"><span data-l="en" lang="en">Exon Platform</span><span data-l="fa" lang="fa">اکسون پلتفرم</span></a>
       <a href="/exon/privacy"><span data-l="en" lang="en">Exon privacy policy</span><span data-l="fa" lang="fa">حریم خصوصی اکسون</span></a>
-      <a href="https://wa.me/93792268198"><span data-l="en" lang="en">WhatsApp</span><span data-l="fa" lang="fa">واتساپ</span></a>
+      <a href="mailto:contact@moonplatform.app">contact@moonplatform.app</a>
     </nav>
   </div>
 </footer>
+
+<div class="search" data-search hidden role="dialog" aria-modal="true" aria-label="Search">
+  <div class="search__box glass">
+    <input type="search" data-ph-en="Search Moon Platform…" data-ph-fa="جستجو در Moon Platform…" placeholder="Search Moon Platform…" aria-label="Search">
+    <ul data-results></ul>
+  </div>
+</div>
 
 </body>
 </html>

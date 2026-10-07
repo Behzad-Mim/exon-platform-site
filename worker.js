@@ -9,10 +9,15 @@
 //       /exon/download/android   the newest APK
 //       /exon/download/windows   the newest Windows ZIP
 //       /exon/download           the newest release's page, with its notes, sizes and checksums
-//   - /exon/latest, which the app asks to learn whether a newer build has been published.
+//   - /exon/latest, which the app asks to learn whether a newer build has been published;
+//   - /api/updates, the newest releases for the home page, read from GitHub's releases feed;
+//   - /api/contact, the home page's form: one message, sent to the owner's inbox through Cloudflare
+//     Email Routing (the send_email binding). Nothing about it is stored.
 //
 // The installers themselves stay among GitHub's releases; this only points at them. If they ever
 // move, these few lines change, and every printed QR code and every installed app follows.
+
+import { EmailMessage } from "cloudflare:email";
 
 const APEX = "moonplatform.app";
 const RELEASES = "https://github.com/Behzad-Mim/exon-platform-releases/releases";
@@ -53,6 +58,12 @@ export default {
 
     if (path === "/exon/latest")
       return latest(ctx);
+
+    if (path === "/api/contact")
+      return request.method === "POST" ? contact(request, env) : new Response(null, { status: 405, headers: { Allow: "POST" } });
+
+    if (path === "/api/updates")
+      return updates(ctx);
 
     if (Object.hasOwn(MOVED, path))
       return Response.redirect(new URL(MOVED[path], url).toString(), 301);
@@ -120,4 +131,148 @@ function dressed(response) {
   page.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
   page.headers.set("X-Frame-Options", "DENY");
   return page;
+}
+
+// ------------------------------------------------------------------ the form
+
+const FROM = "website@moonplatform.app";
+
+function json(body, status = 200, extra = {}) {
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store", ...extra },
+  });
+}
+
+// One line of what a visitor typed, safe to put in a mail header: no line breaks, no angle brackets.
+function line(value, max) {
+  return typeof value === "string" ? value.replace(/[\r\n<>"\\]/g, " ").replace(/\s+/g, " ").trim().slice(0, max) : "";
+}
+
+function base64(text) {
+  const bytes = new TextEncoder().encode(text);
+  let binary = "";
+  for (let i = 0; i < bytes.length; i += 0x8000) binary += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
+  return btoa(binary);
+}
+
+// A header word in plain ASCII when it can be, RFC 2047 when it cannot (a Persian name, say).
+const word = (text) => (/^[\x20-\x7e]*$/.test(text) ? text : `=?UTF-8?B?${base64(text)}?=`);
+
+async function contact(request, env) {
+  // only from our own pages (and a developer's copy on this machine)
+  const origin = request.headers.get("Origin");
+  if (origin) {
+    const host = new URL(origin).hostname;
+    if (host !== APEX && host !== "localhost" && host !== "127.0.0.1") return json({ ok: false }, 403);
+  }
+
+  let data;
+  try {
+    const text = await request.text();
+    if (text.length > 20000) return json({ ok: false }, 413);
+    data = JSON.parse(text);
+  } catch (e) {
+    return json({ ok: false }, 400);
+  }
+
+  // A robot fills the field a person never sees, or sends faster than a person can type. It is told
+  // it worked, and nothing is sent.
+  if (data.company || !(Number(data.waited) > 2500)) return json({ ok: true });
+
+  const name = line(data.name, 100);
+  const email = line(data.email, 200);
+  const message = typeof data.message === "string" ? data.message.replace(/\r\n?/g, "\n").trim().slice(0, 4000) : "";
+  if (!name || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email) || message.length < 5) return json({ ok: false }, 400);
+
+  const ip = request.headers.get("CF-Connecting-IP") || "local";
+  if (env.CONTACT_LIMIT) {
+    const { success } = await env.CONTACT_LIMIT.limit({ key: ip });
+    if (!success) return json({ ok: false }, 429);
+  }
+
+  if (!env.MAIL || !env.MAIL_TO) return json({ ok: false }, 503);
+
+  const lang = data.lang === "fa" ? "fa" : "en";
+  const body = [
+    `Name: ${name}`,
+    `Email: ${email}`,
+    `Language: ${lang}`,
+    `Country: ${request.cf?.country || "?"}`,
+    "",
+    message,
+    "",
+    "— sent from the form on https://moonplatform.app/#contact",
+  ].join("\n");
+
+  const raw = [
+    `From: ${word("Moon Platform website")} <${FROM}>`,
+    `To: <${env.MAIL_TO}>`,
+    `Reply-To: ${word(name)} <${email}>`,
+    `Subject: ${word("moonplatform.app — " + name)}`,
+    `Message-ID: <${crypto.randomUUID()}@${APEX}>`,
+    `Date: ${new Date().toUTCString()}`,
+    "MIME-Version: 1.0",
+    "Content-Type: text/plain; charset=UTF-8",
+    "Content-Transfer-Encoding: base64",
+    "",
+    base64(body).replace(/.{76}/g, "$&\r\n"),
+  ].join("\r\n");
+
+  try {
+    await env.MAIL.send(new EmailMessage(FROM, env.MAIL_TO, raw));
+  } catch (e) {
+    return json({ ok: false }, 502);
+  }
+
+  return json({ ok: true });
+}
+
+// ------------------------------------------------------------------ updates
+
+// GitHub's releases feed rather than its API: the API allows an unauthenticated caller sixty requests
+// an hour per address, and Cloudflare's addresses are shared with everybody else's workers.
+const UPDATES_SECONDS = 1800;
+
+const entity = (text) => text
+  .replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&#39;/g, "'")
+  .replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(Number(n))).replace(/&amp;/g, "&");
+
+function parseFeed(xml) {
+  return xml.split("<entry>").slice(1).map((entry) => {
+    const pick = (re) => (entry.match(re) || [])[1] || "";
+    const link = pick(/<link[^>]*href="([^"]+)"/);
+    const html = entity(pick(/<content type="html">([\s\S]*?)<\/content>/));
+    const paragraphs = [...html.matchAll(/<p[^>]*>([\s\S]*?)<\/p>/g)]
+      .map((m) => entity(m[1].replace(/<[^>]+>/g, "")).replace(/\s+/g, " ").trim())
+      .filter(Boolean);
+    const persian = (t) => /[\u0600-\u06FF]/.test(t);
+    return {
+      version: (link.match(/\/tag\/v?([^/?#]+)/) || [])[1] || entity(pick(/<title>([^<]*)<\/title>/)),
+      date: pick(/<updated>([^<]+)<\/updated>/),
+      url: link,
+      en: paragraphs.find((t) => !persian(t)) || "",
+      fa: paragraphs.find(persian) || "",
+    };
+  }).filter((r) => r.url);
+}
+
+async function updates(ctx) {
+  const cache = caches.default;
+  const key = new Request(`https://${APEX}/api/updates`);
+  const kept = await cache.match(key);
+  if (kept) return kept;
+
+  let releases = [];
+  try {
+    const res = await fetch(`${RELEASES}.atom`, { headers: { "User-Agent": "moonplatform.app", Accept: "application/atom+xml" } });
+    if (res.ok) releases = parseFeed(await res.text()).slice(0, 6);
+  } catch (e) {
+    // the page keeps its link to the releases instead
+  }
+
+  const response = json({ releases }, releases.length ? 200 : 502,
+    { "Cache-Control": releases.length ? `public, max-age=${UPDATES_SECONDS}` : "no-store" });
+  if (releases.length) ctx.waitUntil(cache.put(key, response.clone()));
+  return response;
 }

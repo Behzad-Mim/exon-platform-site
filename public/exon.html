@@ -16,8 +16,8 @@
 <meta property="og:url" content="https://moonplatform.app/exon">
 <meta property="og:image" content="https://moonplatform.app/assets/exon-icon.png">
 <meta property="og:type" content="website">
-<link rel="stylesheet" href="/assets/moon.css">
-<script src="/assets/moon.js" defer></script>
+<link rel="stylesheet" href="/assets/site.css">
+<script type="module" src="/assets/page.js"></script>
 </head>
 <body data-lang="en">
 
@@ -32,28 +32,43 @@
   <symbol id="i-lang" viewBox="0 0 24 24"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></symbol>
   <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></symbol>
   <symbol id="i-file" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8M16 13H8M16 17H8"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></symbol>
   <symbol id="mark" viewBox="0 0 32 32"><defs><linearGradient id="mg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".55" stop-color="#dfe5fa"/><stop offset="1" stop-color="#7d92d9"/></linearGradient><mask id="mm"><rect width="32" height="32" fill="#fff"/><circle cx="21.5" cy="10.5" r="10.5" fill="#000"/></mask></defs><circle cx="15" cy="17" r="12" fill="url(#mg)" mask="url(#mm)"/><circle cx="25.5" cy="6.5" r="1.7" fill="#ffbf73"/></symbol>
 </svg>
 
-<div class="sky" aria-hidden="true"></div>
+<div class="sky" aria-hidden="true"><div class="sky__hero" style="opacity:.6"></div><div class="sky__apps" style="opacity:1"></div></div>
 <div class="grain" aria-hidden="true"></div>
 
 <a class="skip" href="#main"><span data-l="en" lang="en">Skip to content</span><span data-l="fa" lang="fa">رفتن به محتوا</span></a>
 
-<header class="bar">
-  <div class="wrap bar__in">
-    <a class="brand" href="/" aria-label="Moon Platform"><svg aria-hidden="true"><use href="#mark"/></svg>Moon Platform</a>
-    <nav class="nav" aria-label="Sections">
-      <a href="/#apps"><span data-l="en" lang="en">Apps</span><span data-l="fa" lang="fa">اپ‌ها</span></a>
-      <a href="/#games"><span data-l="en" lang="en">Games</span><span data-l="fa" lang="fa">بازی‌ها</span></a>
-      <a href="/#tools"><span data-l="en" lang="en">Windows Tools</span><span data-l="fa" lang="fa">ابزارهای ویندوز</span></a>
-    </nav>
-    <div class="langs" role="group" aria-label="Language">
-      <button type="button" data-set-lang="en" aria-pressed="true" lang="en">EN</button>
-      <button type="button" data-set-lang="fa" aria-pressed="false" lang="fa">فا</button>
+<header class="top">
+  <nav class="capsule" aria-label="Main">
+    <a class="capsule__mark" href="/" aria-label="Moon Platform"><svg aria-hidden="true"><use href="#mark"/></svg></a>
+    <div class="capsule__tabs">
+      <a class="tab" href="/#apps"><span data-l="en" lang="en">Apps</span><span data-l="fa" lang="fa">اپ‌ها</span></a>
+      <a class="tab" href="/#games"><span data-l="en" lang="en">Games</span><span data-l="fa" lang="fa">بازی‌ها</span></a>
+      <a class="tab" href="/#tools"><span data-l="en" lang="en">Windows Tools</span><span data-l="fa" lang="fa">ابزارهای ویندوز</span></a>
+      <a class="tab" href="/#updates"><span data-l="en" lang="en">Updates</span><span data-l="fa" lang="fa">به‌روزرسانی‌ها</span></a>
+      <button class="tab" type="button" data-open-search><svg class="icon" aria-hidden="true"><use href="#i-search"/></svg><span data-l="en" lang="en">Search</span><span data-l="fa" lang="fa">جستجو</span><kbd>/</kbd></button>
     </div>
-  </div>
+    <button class="tab tab--lang" type="button" data-toggle-lang aria-label="English / فارسی">فا</button>
+    <a class="capsule__cta" href="/exon"><span data-l="en" lang="en">Get Started</span><span data-l="fa" lang="fa">شروع کنید</span></a>
+    <button class="capsule__menu" type="button" data-menu-button aria-expanded="false" aria-controls="menu" aria-label="Menu"><svg class="icon" aria-hidden="true"><use href="#i-menu"/></svg></button>
+  </nav>
 </header>
+<div class="menu glass" id="menu" data-menu hidden>
+  <a href="/#apps"><span data-l="en" lang="en">Apps</span><span data-l="fa" lang="fa">اپ‌ها</span></a>
+  <a href="/#games"><span data-l="en" lang="en">Games</span><span data-l="fa" lang="fa">بازی‌ها</span></a>
+  <a href="/#tools"><span data-l="en" lang="en">Windows Tools</span><span data-l="fa" lang="fa">ابزارهای ویندوز</span></a>
+  <a href="/#updates"><span data-l="en" lang="en">Updates</span><span data-l="fa" lang="fa">به‌روزرسانی‌ها</span></a>
+  <button type="button" data-open-search><span data-l="en" lang="en">Search</span><span data-l="fa" lang="fa">جستجو</span><svg class="icon" aria-hidden="true"><use href="#i-search"/></svg></button>
+  <button type="button" data-toggle-lang aria-label="English / فارسی">فا</button>
+</div>
+
 
 <main id="main">
   <section class="page-hero">
@@ -178,6 +193,44 @@
       </div>
     </section>
 
+    <section class="section" style="padding-top:var(--s16)" aria-label="Screens">
+      <div class="gallery" data-reveal>
+        <div class="gallery__head">
+          <h3 class="h2"><span data-l="en" lang="en">A look inside</span><span data-l="fa" lang="fa">نگاهی به داخل</span></h3>
+          <div class="gallery__nav">
+            <button type="button" data-strip="-1" aria-label="Back"><svg class="icon"><use href="#i-left"/></svg></button>
+            <button type="button" data-strip="1" aria-label="Next"><svg class="icon"><use href="#i-right"/></svg></button>
+          </div>
+        </div>
+        <div class="strip" data-strip-list tabindex="0">
+          <img data-l="en" class="shot-phone" src="/assets/shots/en/phone-dashboard.webp" width="720" height="1280" alt="Exon Platform: your cash at a glance" loading="lazy">
+          <img data-l="en" class="shot-phone" src="/assets/shots/en/phone-hawala.webp" width="720" height="1280" alt="Exon Platform: a hawala in seconds" loading="lazy">
+          <img data-l="en" class="shot-phone" src="/assets/shots/en/phone-account.webp" width="720" height="1280" alt="Exon Platform: one account, every kind of deal" loading="lazy">
+          <img data-l="en" class="shot-desk" src="/assets/shots/en/desk-dashboard.webp" width="1280" height="720" alt="Exon Platform on Windows" loading="lazy">
+          <img data-l="en" class="shot-phone" src="/assets/shots/en/phone-customers.webp" width="720" height="1280" alt="Exon Platform: every account in one list" loading="lazy">
+          <img data-l="en" class="shot-phone" src="/assets/shots/en/phone-exchange.webp" width="720" height="1280" alt="Exon Platform: currency exchange" loading="lazy">
+          <img data-l="en" class="shot-phone" src="/assets/shots/en/phone-page-trade.webp" width="720" height="1280" alt="Exon Platform: buying and selling, worked out" loading="lazy">
+          <img data-l="en" class="shot-desk" src="/assets/shots/en/desk-account.webp" width="1280" height="720" alt="Exon Platform on Windows: an account" loading="lazy">
+          <img data-l="en" class="shot-phone" src="/assets/shots/en/phone-finance.webp" width="720" height="1280" alt="Exon Platform: income and expenses" loading="lazy">
+          <img data-l="en" class="shot-phone" src="/assets/shots/en/phone-statement.webp" width="720" height="1280" alt="Exon Platform: statements to share" loading="lazy">
+          <img data-l="en" class="shot-phone" src="/assets/shots/en/phone-lock.webp" width="720" height="1280" alt="Exon Platform: locked with your PIN" loading="lazy">
+          <img data-l="en" class="shot-desk" src="/assets/shots/en/desk-page-trade.webp" width="1280" height="720" alt="Exon Platform on Windows: know your profit" loading="lazy">
+          <img data-l="fa" class="shot-phone" src="/assets/shots/fa/phone-dashboard.webp" width="720" height="1280" alt="اکسون پلتفرم: موجودی صندوق در یک نگاه" loading="lazy">
+          <img data-l="fa" class="shot-phone" src="/assets/shots/fa/phone-hawala.webp" width="720" height="1280" alt="اکسون پلتفرم: ثبت حواله در چند ثانیه" loading="lazy">
+          <img data-l="fa" class="shot-phone" src="/assets/shots/fa/phone-account.webp" width="720" height="1280" alt="اکسون پلتفرم: یک حساب، همهٔ معاملات" loading="lazy">
+          <img data-l="fa" class="shot-desk" src="/assets/shots/fa/desk-dashboard.webp" width="1280" height="720" alt="اکسون پلتفرم روی ویندوز" loading="lazy">
+          <img data-l="fa" class="shot-phone" src="/assets/shots/fa/phone-customers.webp" width="720" height="1280" alt="اکسون پلتفرم: همهٔ حساب‌ها در یک فهرست" loading="lazy">
+          <img data-l="fa" class="shot-phone" src="/assets/shots/fa/phone-exchange.webp" width="720" height="1280" alt="اکسون پلتفرم: تبادلهٔ ارز" loading="lazy">
+          <img data-l="fa" class="shot-phone" src="/assets/shots/fa/phone-page-trade.webp" width="720" height="1280" alt="اکسون پلتفرم: خرید و فروش، حساب‌شده" loading="lazy">
+          <img data-l="fa" class="shot-desk" src="/assets/shots/fa/desk-account.webp" width="1280" height="720" alt="اکسون پلتفرم روی ویندوز: یک حساب" loading="lazy">
+          <img data-l="fa" class="shot-phone" src="/assets/shots/fa/phone-finance.webp" width="720" height="1280" alt="اکسون پلتفرم: عواید و مصارف" loading="lazy">
+          <img data-l="fa" class="shot-phone" src="/assets/shots/fa/phone-statement.webp" width="720" height="1280" alt="اکسون پلتفرم: صورت‌حساب برای فرستادن" loading="lazy">
+          <img data-l="fa" class="shot-phone" src="/assets/shots/fa/phone-lock.webp" width="720" height="1280" alt="اکسون پلتفرم: قفل با رمز خودتان" loading="lazy">
+          <img data-l="fa" class="shot-desk" src="/assets/shots/fa/desk-page-trade.webp" width="1280" height="720" alt="اکسون پلتفرم روی ویندوز: سودتان را بدانید" loading="lazy">
+        </div>
+      </div>
+    </section>
+
     <section class="section" style="padding-top:var(--s20)" aria-labelledby="google-title">
       <div class="note glass" data-reveal>
         <p class="hud" style="margin:0 0 var(--s3)"><span data-l="en">About the Google connection</span><span data-l="fa">دربارهٔ اتصال گوگل</span></p>
@@ -207,7 +260,7 @@
 
 <footer class="foot">
   <div class="wrap foot__in">
-    <a class="brand" href="/" aria-label="Moon Platform"><svg aria-hidden="true"><use href="#mark"/></svg>Moon Platform</a>
+    <a class="foot__brand" href="/"><svg aria-hidden="true"><use href="#mark"/></svg>Moon Platform</a>
     <span class="muted">
       <span data-l="en" lang="en">Exon Platform — by Moon Platform</span><span data-l="fa" lang="fa">اکسون پلتفرم — از Moon Platform</span>
     </span>
@@ -218,6 +271,13 @@
     </nav>
   </div>
 </footer>
+
+<div class="search" data-search hidden role="dialog" aria-modal="true" aria-label="Search">
+  <div class="search__box glass">
+    <input type="search" data-ph-en="Search Moon Platform…" data-ph-fa="جستجو در Moon Platform…" placeholder="Search Moon Platform…" aria-label="Search">
+    <ul data-results></ul>
+  </div>
+</div>
 
 </body>
 </html>

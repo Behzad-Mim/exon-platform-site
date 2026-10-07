@@ -3,3 +3,9 @@
 wrangler.toml
 .wrangler/
 node_modules/
+
+# built by npm run build from src/
+public/assets/main.js
+public/assets/main.js.LEGAL.txt
+public/assets/page.js
+public/assets/page.js.LEGAL.txt

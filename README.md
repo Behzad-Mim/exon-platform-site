@@ -8,14 +8,22 @@ The look and its rules are in [`DESIGN.md`](DESIGN.md).
 
 ```
 public/                     the site, as Cloudflare serves it
-  index.html                Moon Platform: Apps (Exon Platform), Games and Windows Tools (coming soon)
+  index.html                Moon Platform: Apps (Exon), Games, Windows Tools, Updates, Contact
   exon.html                 Exon Platform's page, with the download links        -> /exon
   exon/privacy.html         Exon Platform's privacy policy                        -> /exon/privacy
   404.html                  any address that is not a page
-  assets/moon.css, moon.js  the one stylesheet and the one script; the moon is drawn in moon.js
-  assets/exon-icon.png      the app's own icon
-  favicon.svg, robots.txt, sitemap.xml, google....html
-worker.js                   the redirects: www and http, /exon/download..., /exon/latest, /privacy
+  assets/site.css           the one stylesheet
+  assets/main.js, page.js   BUILT from src/ (npm run build) — do not edit by hand
+  assets/screens/{en,fa}    the app's own screens, in the 3D devices
+  assets/shots/{en,fa}      the store-style pictures, in the galleries
+  assets/fonts/             Vazirmatn (the app's font, OFL) for Persian
+  assets/og.jpg, exon-icon.png, favicon.svg, robots.txt, sitemap.xml, google....html
+src/
+  scene.js                  the WebGL scene (three.js): moon, burst, controller, gears
+  main.js                   the home page: pins, timelines, what the scene is told each frame
+  common.js                 every page: language, capsule, search, Lenis, reveals, contact form
+  page.js                   the inner pages' entry
+worker.js                   redirects, /exon/latest, /api/updates, /api/contact
 wrangler.toml.example       the worker's config; copy to wrangler.toml (gitignored) to deploy
 DESIGN.md                   the design system: tokens, components, motion, accepted debt
 
@@ -23,7 +31,9 @@ index.html, privacy.html    GitHub Pages only: forward the old address to /exon 
 sitemap.xml, google....html GitHub Pages only: what Search Console knows the old address by
 ```
 
-The pages fetch nothing from anybody else: no CDN, no web font, no analytics, no build step. English and Persian live in the same file behind a toggle, each with its own
+The pages fetch nothing from anybody else: no CDN, no third-party font, no analytics. Three.js, GSAP
+(ScrollTrigger) and Lenis are npm packages bundled by esbuild into `public/assets/` and served from
+this domain. English and Persian live in the same file behind a toggle, each with its own
 `lang` and `dir`.
 
 ## The addresses
@@ -59,9 +69,22 @@ meta refresh, a script, and a canonical link) to `/exon` and `/exon/privacy`. Le
 From this folder, with the owner's Cloudflare account logged in (`npx wrangler login`):
 
 ```bash
-cp wrangler.toml.example wrangler.toml   # once
+npm install                              # once: three, gsap, lenis, esbuild
+cp wrangler.toml.example wrangler.toml   # once; put the owner's verified Email Routing address in it
+npm run build                            # src/ -> public/assets/main.js, page.js
 npx wrangler deploy
 ```
+
+The contact form needs the zone's Email Routing on, with the destination address verified there;
+`[[send_email]]` in wrangler.toml names it. Messages come from `website@moonplatform.app` with the
+visitor's address as Reply-To.
+
+### The Exon pictures
+
+`assets/screens` and `assets/shots` come from the app itself, on a made-up book:
+`dotnet run --project tools/UiProbe -- --market <folder> --lang en|fa [--phone] [--size 1024x640]`
+renders the screens; the store frames around them are HTML templates shot in headless Chrome. Full
+size copies for the stores live in `publish/marketing/` of the main repository (not in git).
 
 The custom domains in the config are created by the deploy itself, certificates included. Then
 push the repository as before, for the GitHub Pages side:

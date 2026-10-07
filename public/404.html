@@ -9,11 +9,11 @@
 <meta name="title-fa" content="اینجا نیست — Moon Platform">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <meta name="theme-color" content="#04050b">
-<link rel="stylesheet" href="/assets/moon.css">
-<script src="/assets/moon.js" defer></script>
+<link rel="stylesheet" href="/assets/site.css">
+<script type="module" src="/assets/page.js"></script>
 </head>
 <body data-lang="en">
-<div class="sky" aria-hidden="true"></div>
+<div class="sky" aria-hidden="true"><div class="sky__hero" style="opacity:.6"></div><div class="sky__apps" style="opacity:1"></div></div>
 <div class="grain" aria-hidden="true"></div>
 
 <main class="wrap" style="min-height:100dvh;display:grid;place-items:center;text-align:center">
@@ -28,11 +28,15 @@
       <a class="btn btn--primary" href="/"><span data-l="en" lang="en">Moon Platform</span><span data-l="fa" lang="fa">صفحهٔ اصلی</span></a>
       <a class="btn btn--glass" href="/exon"><span data-l="en" lang="en">Exon Platform</span><span data-l="fa" lang="fa">اکسون پلتفرم</span></a>
     </div>
-    <div class="langs" role="group" aria-label="Language">
-      <button type="button" data-set-lang="en" aria-pressed="true" lang="en">EN</button>
-      <button type="button" data-set-lang="fa" aria-pressed="false" lang="fa">فا</button>
-    </div>
+    <button class="tab tab--lang" type="button" data-toggle-lang aria-label="English / فارسی">فا</button>
   </div>
 </main>
+<div class="search" data-search hidden role="dialog" aria-modal="true" aria-label="Search">
+  <div class="search__box glass">
+    <input type="search" data-ph-en="Search Moon Platform…" data-ph-fa="جستجو در Moon Platform…" placeholder="Search Moon Platform…" aria-label="Search">
+    <ul data-results></ul>
+  </div>
+</div>
+
 </body>
 </html>
