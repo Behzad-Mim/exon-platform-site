@@ -73,6 +73,8 @@ a { color: var(--accent); text-decoration: none; transition: color 140ms ease-ou
 a:hover { color: var(--accent-hover); }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 8px; }
 img, svg, canvas { display: block; }
+/* a picture keeps its shape: the height written on the tag never wins over the width it is given */
+img { height: auto; }
 button { font: inherit; color: inherit; }
 .icon { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 body[data-lang="fa"] .icon--dir { transform: scaleX(-1); }
@@ -230,12 +232,13 @@ body[data-lang="fa"] .chip { font: 700 13px/1 var(--fa); letter-spacing: 0; }
 .monitor3d, .phone3d { position: absolute; transform-style: preserve-3d; will-change: transform; }
 .monitor3d { width: min(72%, 820px); inset-inline-start: 2%; top: 4%; }
 .monitor3d__frame { border-radius: 20px; padding: 14px 14px 20px; background: linear-gradient(160deg, #1b1f30, #07080f); box-shadow: 0 0 0 1px rgba(223, 229, 250, .14), 0 60px 120px -40px rgba(80, 60, 220, .7), inset 0 1px 0 rgba(255, 255, 255, .1); }
-.monitor3d__frame img { width: 100%; border-radius: 8px; aspect-ratio: 1024 / 640; object-fit: cover; }
+/* height:auto — the height written on the <img> would otherwise win over the aspect ratio and crop the screen */
+.monitor3d__frame img { width: 100%; height: auto; border-radius: 8px; aspect-ratio: 1024 / 640; object-fit: cover; }
 .monitor3d__neck { width: 16%; height: 46px; margin: 0 auto; background: linear-gradient(#22263a, #0c0e18); clip-path: polygon(18% 0, 82% 0, 100% 100%, 0 100%); }
 .monitor3d__foot { width: 34%; height: 12px; margin: 0 auto; border-radius: 0 0 14px 14px; background: linear-gradient(#2a2f45, #0f111c); }
 .phone3d { width: min(24%, 250px); inset-inline-end: 4%; top: 12%; }
 .phone3d__frame { border-radius: 38px; padding: 9px; background: #07080f; box-shadow: 0 0 0 1px rgba(223, 229, 250, .2), 0 50px 100px -30px rgba(40, 90, 255, .8), inset 0 0 0 2px #23263a; }
-.phone3d__frame img { width: 100%; border-radius: 30px; aspect-ratio: 412 / 915; object-fit: cover; }
+.phone3d__frame img { width: 100%; height: auto; border-radius: 30px; aspect-ratio: 412 / 915; object-fit: cover; }
 .holo {
   position: absolute; display: inline-flex; align-items: center; gap: var(--s2); padding: var(--s3) var(--s4); border-radius: 16px; white-space: nowrap;
   color: #e9f7ff; font-weight: 600; font-size: 14px; background: linear-gradient(135deg, rgba(63, 208, 255, .16), rgba(139, 124, 248, .16));

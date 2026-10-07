@@ -7,7 +7,7 @@
 import { body, finePointer, gsap, lang, reveal, ScrollTrigger, still } from "./common.js";
 import { createScene } from "./scene.js";
 
-const small = innerWidth < 760;
+const small = innerWidth < 760;   // the scene's point count, chosen once
 const canvas = document.querySelector("canvas.scene");
 const scene = canvas && createScene(canvas, { small, still });
 if (!scene) document.documentElement.classList.add("no-webgl");
@@ -22,39 +22,54 @@ const PALETTE = {
   end: ["#7f8fd0", "#3a4a8f"],
 };
 
-// ------------------------------------------------------------------ the hero: the moon, then through it
+// ------------------------------------------------------------------ the hero and the devices, per width
+
+// Rebuilt whenever the window crosses the phone width or the motion setting changes: a window
+// dragged narrow must get the phone's pins and lengths, not keep the desktop's (gsap.matchMedia
+// reverts everything a context made, inline styles included, and runs it again).
+const NARROW = "(max-width: 760px)";
+let narrow = matchMedia(NARROW).matches;
+addEventListener("resize", () => { narrow = matchMedia(NARROW).matches; });
 
 let heroProgress = 0;
 const hero = $("#top");
-if (hero) {
-  const words = hero.querySelector(".hero__words");
-  const length = small ? "+=70%" : "+=110%";
-  ScrollTrigger.create({
-    trigger: hero, start: "top top", end: length, pin: true, scrub: true,
-    onUpdate: (self) => { heroProgress = self.progress; },
-  });
-  if (!still) {
-    gsap.timeline({ scrollTrigger: { trigger: hero, start: "top top", end: length, scrub: true } })
-      .to(words, { scale: 1.35, opacity: 0, filter: "blur(10px)", ease: "power2.in" }, 0)
-      .to(".hero__hud", { opacity: 0, ease: "none" }, 0)
-      .to(".hero__flash", { opacity: 1, ease: "power2.in", duration: 0.5 }, 0.55)
-      .to(".hero__flash", { opacity: 0, ease: "power2.out", duration: 0.45 }, 1.05);
-  }
-}
-
-// ------------------------------------------------------------------ apps: the devices turn, the holograms come up
-
 const stage = $(".stage3d");
-if (stage && !still) {
-  const wide = !small;
-  const tl = gsap.timeline({
-    scrollTrigger: { trigger: ".apps-show", start: wide ? "top top" : "top 70%", end: wide ? "+=130%" : "bottom 40%",
-      pin: wide ? ".apps-show" : false, scrub: 0.8 },
-  });
-  tl.fromTo(".monitor3d", { rotateY: -32, rotateX: 14, z: -260, y: 60 }, { rotateY: -10, rotateX: 4, z: 0, y: 0, ease: "power2.out" }, 0)
-    .fromTo(".phone3d", { rotateY: 38, rotateX: 8, z: -120, y: 140 }, { rotateY: 12, rotateX: 2, z: 120, y: 0, ease: "power2.out" }, 0)
-    .fromTo(".holo", { opacity: 0, z: -80, scale: 0.85 }, { opacity: 1, z: 60, scale: 1, stagger: 0.12, ease: "power3.out" }, 0.25);
-}
+
+gsap.matchMedia().add({ narrow: NARROW, wide: "(min-width: 761px)", motion: "(prefers-reduced-motion: no-preference)" }, (ctx) => {
+  const { narrow: isNarrow, motion } = ctx.conditions;
+
+  // the hero: the moon, then through it
+  if (hero) {
+    const words = hero.querySelector(".hero__words");
+    const length = isNarrow ? "+=70%" : "+=110%";
+    ScrollTrigger.create({
+      trigger: hero, start: "top top", end: length, pin: true, scrub: true,
+      onUpdate: (self) => { heroProgress = self.progress; },
+    });
+    if (motion) {
+      gsap.timeline({ scrollTrigger: { trigger: hero, start: "top top", end: length, scrub: true } })
+        .to(words, { scale: 1.35, opacity: 0, filter: "blur(10px)", ease: "power2.in" }, 0)
+        .to(".hero__hud", { opacity: 0, ease: "none" }, 0)
+        .to(".hero__flash", { opacity: 1, ease: "power2.in", duration: 0.5 }, 0.55)
+        .to(".hero__flash", { opacity: 0, ease: "power2.out", duration: 0.45 }, 1.05);
+    }
+  }
+
+  // apps: the devices turn, the holograms come up — pinned on a wide screen, in passing on a phone
+  if (stage && motion) {
+    gsap.timeline({
+      scrollTrigger: { trigger: ".apps-show", start: isNarrow ? "top 75%" : "top top", end: isNarrow ? "bottom 45%" : "+=130%",
+        pin: isNarrow ? false : ".apps-show", scrub: 0.8 },
+    })
+      .fromTo(".monitor3d", { rotateY: isNarrow ? -18 : -32, rotateX: isNarrow ? 8 : 14, z: isNarrow ? -80 : -260, y: isNarrow ? 30 : 60 },
+        { rotateY: isNarrow ? -6 : -10, rotateX: isNarrow ? 2 : 4, z: 0, y: 0, ease: "power2.out" }, 0)
+      .fromTo(".phone3d", { rotateY: isNarrow ? 22 : 38, rotateX: isNarrow ? 4 : 8, z: isNarrow ? -40 : -120, y: isNarrow ? 60 : 140 },
+        { rotateY: isNarrow ? 8 : 12, rotateX: 2, z: isNarrow ? 40 : 120, y: 0, ease: "power2.out" }, 0)
+      .fromTo(".holo", { opacity: 0, z: -80, scale: 0.85 }, { opacity: 1, z: isNarrow ? 20 : 60, scale: 1, stagger: 0.12, ease: "power3.out" }, 0.25);
+  }
+
+  return () => { heroProgress = 0; };
+});
 
 // ------------------------------------------------------------------ games: the cards come in from the edges
 
@@ -158,11 +173,11 @@ if (scene) {
     t.explode = explode;
     t.ctrl = ctrlIn * (1 - gearIn);
     t.gear = gearIn * (1 - gearOut);
-    t.camZ = mix(mix(6, 2.1, explode), small ? 9.5 : 7.4, appsIn);
+    t.camZ = mix(mix(6, 2.1, explode), narrow ? 9.5 : 7.4, appsIn);
     t.camY = 0;
-    t.opacity = mix(1, 0.35, end) * (small ? 0.9 : 1);
-    t.ctrlX = small ? 0 : (lang() === "fa" ? -1.4 : 1.4);   // across from the heading
-    t.gearX = small ? 0 : (lang() === "fa" ? -1.5 : 1.5);   // across from the heading
+    t.opacity = mix(1, 0.35, end) * (narrow ? 0.9 : 1);
+    t.ctrlX = narrow ? 0 : (lang() === "fa" ? -1.4 : 1.4);   // across from the heading
+    t.gearX = narrow ? 0 : (lang() === "fa" ? -1.5 : 1.5);   // across from the heading
 
     // the light of each part of the page
     const w = {
